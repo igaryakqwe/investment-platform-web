@@ -32,7 +32,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const timeAgo = formatDistanceToNow(createdDate, { addSuffix: true });
 
   return (
-    <Card className="border-border/50 bg-card/50 hover:shadow-primary/5 hover:border-primary/20 group h-full overflow-hidden backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
+    <Card className="border-border/50 bg-card/50 hover:shadow-primary/5 hover:border-primary/20 group h-full w-full overflow-hidden backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
       <div className="relative">
         <div className="aspect-[16/9] overflow-hidden">
           <Image
@@ -55,9 +55,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
-        <p className="text-muted-foreground line-clamp-2 text-sm">
-          {project.description}
-        </p>
         <div>
           <div className="mb-1 flex justify-between text-sm">
             <span>Funding Progress</span>
@@ -68,20 +65,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className="bg-primary h-full rounded-full transition-all duration-500"
               style={{ width: `${progress}%` }}
             ></div>
-          </div>
-        </div>
-        <div className="flex items-center justify-between text-sm">
-          <div>
-            <span className="text-muted-foreground">Target:</span>
-            <span className="ml-1 font-medium">
-              {project.products?.name} ({project.products?.amount} units)
-            </span>
-          </div>
-          <div>
-            <span className="text-muted-foreground">Estimated Value:</span>
-            <span className="ml-1 font-medium">
-              {project.estimatedCost.toLocaleString()} {project.currencyType}
-            </span>
           </div>
         </div>
         <div className="text-muted-foreground border-border/30 flex items-center justify-between border-t pt-2 text-xs">

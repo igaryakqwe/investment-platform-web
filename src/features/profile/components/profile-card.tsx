@@ -26,11 +26,11 @@ const ProfileCard = () => {
   const { user, isLoading } = useAuthStore();
 
   const { contacts, isLoading: isContactsLoading } = useContactsQuery(
-    user?.id as string,
+    user?.id!,
   );
 
-  const deleteContactMutation = useDeleteContact(user?.id as string);
-  const editContactMutation = useEditContact(user?.id as string);
+  const deleteContactMutation = useDeleteContact(user?.id!);
+  const editContactMutation = useEditContact(user?.id!);
 
   const [editingContact, setEditingContact] = useState<string | null>(null);
 
