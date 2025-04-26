@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation"
 import Logo from "@/components/logo";
 import {cn} from "@/utils/styles.utils";
 import {ROUTES} from "@/constants/navigation";
+import UserProfile from "@/components/header/user-profile";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -45,7 +46,7 @@ const Header = () => {
   return (
     <>
       <header
-        className={`${isHomePage ? "sticky" : "fixed"} top-0 z-40 w-full backdrop-blur-lg bg-background/80 border-b border-border/40`}
+        className={`${isHomePage ? "sticky" : "fixed"} max-w-7xl top-0 z-40 w-full backdrop-blur-lg bg-background/80 border-b border-border/40`}
       >
         <div className="container flex h-16 items-center justify-between mx-auto px-4">
           <Logo/>
@@ -83,14 +84,7 @@ const Header = () => {
           </nav>
           
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex gap-2">
-              <Link href={ROUTES.SIGN_IN} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "rounded-full")}>
-                Увійти
-              </Link>
-              <Link href={ROUTES.SIGN_UP} className={cn(buttonVariants({ size: "sm" }), "rounded-full")}>
-                Зареєструватися
-              </Link>
-            </div>
+            <UserProfile />
             
             <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMenu}>
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -129,14 +123,7 @@ const Header = () => {
                 </Link>
               ),
             )}
-            <div className="flex gap-2 mt-2 px-2">
-              <Link href={ROUTES.SIGN_IN} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "flex-1 rounded-full")}>
-                Увійти
-              </Link>
-              <Link href={ROUTES.SIGN_UP} className={cn(buttonVariants({ size: "sm" }), "flex-1 rounded-full")}>
-                Зареєструватися
-              </Link>
-            </div>
+            <UserProfile />
           </nav>
         </motion.div>
       )}
