@@ -36,7 +36,7 @@ export function HeroSection() {
   }
   
   return (
-    <section id="hero" className="relative w-full min-h-[90vh] flex items-center overflow-hidden">
+    <section id="hero" className="relative w-full min-h-[90vh] flex items-center">
       {/* Background elements */}
       <div className="absolute inset-0 z-0">
         <div

@@ -12,7 +12,7 @@ const Home = () => {
         <div className="absolute top-2/3 left-1/2 w-72 h-72 rounded-full bg-secondary/5 blur-3xl"></div>
       </div>
       
-      <main className="flex-1 overflow-hidden">
+      <main className="flex-1">
         <HeroSection />
         <HowItWorksSection />
         <ProjectsSection />
