@@ -30,7 +30,7 @@ const ProfileUpdateModal = () => {
           Редагувати
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[700px]">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Оновити профіль</DialogTitle>
           <DialogDescription>

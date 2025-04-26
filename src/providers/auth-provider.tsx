@@ -4,22 +4,21 @@ import { type PropsWithChildren, useEffect } from "react";
 
 import { hydrateAuthStore } from "@/store/use-auth-store";
 import { getAuthToken, getUser } from "@/utils/auth.utils";
+import { useQuery } from "@tanstack/react-query";
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const token = getAuthToken();
 
-  const fetchUser = async () => {
-    try {
-      await getUser();
-    } catch (e) {
-      hydrateAuthStore(null);
-      console.error(e);
-    }
-  };
+  const { data: user } = useQuery({
+    queryKey: ["user", token],
+    queryFn: () => getUser(),
+  });
 
   useEffect(() => {
-    fetchUser().catch((error) => console.error(error));
-  }, [token]);
+    if (!token || user) return;
+
+    hydrateAuthStore(user ?? null);
+  }, [token, user]);
 
   return <>{children}</>;
 };
