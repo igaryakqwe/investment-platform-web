@@ -4,7 +4,7 @@ import Footer from "@/components/footer/footer";
 
 const MainLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="w-full flex items-center min-h-screen flex-col">
+    <div className="flex min-h-screen w-full flex-col items-center">
       <Header />
       <main className="h-full flex-1">{children}</main>
       <Footer />

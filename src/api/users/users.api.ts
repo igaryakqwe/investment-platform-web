@@ -3,6 +3,7 @@ import { API_URL } from "@/lib/constants";
 import type { ErrorResponse } from "@/types/api";
 import { type User } from "@/types/user";
 import { generateAuthHeaders } from "@/utils/auth.utils";
+import type { Investment } from "@/types/investment";
 
 export const updateUser = async (data: UserUpdateDto, id: string) => {
   try {
@@ -59,6 +60,27 @@ export const getUserChats = async () => {
     }
 
     return (await response.json()) as User[];
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const getUserInvestments = async (userId: string) => {
+  try {
+    const response = await fetch(`${API_URL}/users/${userId}/investments`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...generateAuthHeaders(),
+      },
+    });
+
+    if (!response.ok) {
+      const error = (await response.json()) as ErrorResponse;
+      throw new Error(error.message);
+    }
+
+    return (await response.json()) as Investment[];
   } catch (e) {
     throw e;
   }
