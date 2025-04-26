@@ -23,6 +23,8 @@ const SignUpForm = ({ className }: SignUpFormProps) => {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
@@ -37,7 +39,7 @@ const SignUpForm = ({ className }: SignUpFormProps) => {
     try {
       await signUp({
         ...data,
-        isLegal: !!data.isLegal,
+        isLegal: data.isLegal,
       });
       toast.success("Акаунт успішно створено", {
         description:
@@ -84,7 +86,10 @@ const SignUpForm = ({ className }: SignUpFormProps) => {
             defaultValue="false"
             className="flex gap-4"
             {...register("isLegal", {
-              setValueAs: (value) => value === "true",
+              onChange: (e) => {
+                const value = e.target.value === "true";
+                setValue("isLegal", value);
+              },
             })}
           >
             <div className="flex items-center space-x-2">

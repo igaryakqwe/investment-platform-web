@@ -41,7 +41,6 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<UserUpdateDto>({
@@ -65,7 +64,7 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
       await updateUserAvatar(formData);
 
       await updateUser(data, user.id);
-      await queryClient.invalidateQueries({ queryKey: ["profile", user.id] });
+      await queryClient.invalidateQueries({ queryKey: ["user"] });
       toast.success("Профіль успішно оновлено");
       reset();
       closeModal();
@@ -110,7 +109,7 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitHandler)} className="space-y-6">
+    <form onSubmit={handleSubmit(submitHandler)} className="mx-1 space-y-6">
       <div className="mb-6 flex flex-col items-center space-y-4">
         <Label
           htmlFor="profileImage"
@@ -168,9 +167,9 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="space-y-4">
-          {!user.isLegal && (
+      <div className="space-y-4">
+        {!user.isLegal && (
+          <>
             <Input
               id="name"
               label="Назва"
@@ -178,56 +177,63 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
               placeholder="Назва організації або повне ім'я"
               {...register("name")}
             />
-          )}
+            <Textarea
+              id="description"
+              label="Опис"
+              error={errors.description?.message}
+              placeholder="Короткий опис"
+              {...register("description")}
+            />
+          </>
+        )}
 
-          {user.isLegal && (
-            <>
-              <Input
-                id="firstName"
-                label="Ім'я"
-                error={errors.firstName?.message}
-                placeholder="Іван"
-                {...register("firstName")}
-              />
+        {user.isLegal && (
+          <>
+            <Input
+              id="firstName"
+              label="Ім'я"
+              error={errors.firstName?.message}
+              placeholder="Іван"
+              {...register("firstName")}
+            />
 
-              <Input
-                id="middleName"
-                label="По батькові"
-                error={errors.middleName?.message}
-                placeholder="Петрович"
-                {...register("middleName")}
-              />
+            <Input
+              id="middleName"
+              label="По батькові"
+              error={errors.middleName?.message}
+              placeholder="Петрович"
+              {...register("middleName")}
+            />
 
-              <Input
-                id="lastName"
-                label="Прізвище"
-                error={errors.lastName?.message}
-                placeholder="Коваленко"
-                {...register("lastName")}
-              />
-            </>
-          )}
-        </div>
+            <Input
+              id="lastName"
+              label="Прізвище"
+              error={errors.lastName?.message}
+              placeholder="Коваленко"
+              {...register("lastName")}
+            />
+          </>
+        )}
+      </div>
 
-        <div className="space-y-4">
-          <Input
-            id="currentPassword"
-            type="password"
-            label="Поточний пароль"
-            error={errors.currentPassword?.message}
-            placeholder="••••••••"
-            {...register("currentPassword")}
-          />
+      <div className="space-y-4">
+        <Input
+          id="currentPassword"
+          type="password"
+          label="Поточний пароль"
+          error={errors.currentPassword?.message}
+          placeholder="••••••••"
+          {...register("currentPassword")}
+        />
 
-          <Input
-            id="newPassword"
-            type="password"
-            label="Новий пароль"
-            error={errors.newPassword?.message}
-            placeholder="••••••••"
-            {...register("newPassword")}
-          />
-        </div>
+        <Input
+          id="newPassword"
+          type="password"
+          label="Новий пароль"
+          error={errors.newPassword?.message}
+          placeholder="••••••••"
+          {...register("newPassword")}
+        />
       </div>
 
       <div className="space-y-4">
