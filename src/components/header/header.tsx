@@ -45,7 +45,7 @@ const Header = () => {
   return (
     <>
       <header
-        className={`${isHomePage ? "sticky" : "fixed"} top-0 z-40 w-full backdrop-blur-lg bg-background/80 border-b border-border/40`}
+        className={`${isHomePage ? "sticky" : "fixed"} max-w-7xl top-0 z-40 w-full backdrop-blur-lg bg-background/80 border-b border-border/40`}
       >
         <div className="container flex h-16 items-center justify-between mx-auto px-4">
           <Logo/>
