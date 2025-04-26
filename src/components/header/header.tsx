@@ -3,12 +3,10 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import { usePathname } from "next/navigation"
 import Logo from "@/components/logo";
-import {cn} from "@/utils/styles.utils";
-import {ROUTES} from "@/constants/navigation";
 import UserProfile from "@/components/header/user-profile";
 
 const Header = () => {
@@ -84,7 +82,9 @@ const Header = () => {
           </nav>
           
           <div className="flex items-center gap-4">
-            <UserProfile />
+            <div className="hidden md:flex">
+              <UserProfile />
+            </div>
             
             <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMenu}>
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -101,6 +101,7 @@ const Header = () => {
           className="md:hidden fixed inset-x-0 top-16 z-30 bg-background/95 backdrop-blur-lg border-b border-border/40 px-2 py-4"
         >
           <nav className="container flex flex-col gap-4">
+            <UserProfile />
             {navItems.map((item) =>
               isHomePage ? (
                 <button
@@ -123,7 +124,6 @@ const Header = () => {
                 </Link>
               ),
             )}
-            <UserProfile />
           </nav>
         </motion.div>
       )}
