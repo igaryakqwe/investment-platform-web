@@ -3,25 +3,40 @@ import Logo from "../logo";
 
 const Footer = () => {
   return (
-    <footer className="w-full border-t bg-background py-6 md:py-12">
-      <div className="container flex flex-col items-center justify-center gap-4 px-4 mx-auto md:px-6 md:flex-row md:justify-between">
-        <Logo/>
-        <div className="flex gap-4">
-          <Link href="#" className="text-md text-muted-foreground hover:text-foreground">
+    <footer className="bg-background w-full border-t py-6 md:py-12">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-4 px-4 md:flex-row md:justify-between md:px-6">
+        <Logo />
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="#"
+            className="text-md text-muted-foreground hover:text-foreground"
+          >
             Про нас
           </Link>
-          <Link href="#" className="text-md text-muted-foreground hover:text-foreground">
+          <Link
+            href="#"
+            className="text-md text-muted-foreground hover:text-foreground"
+          >
             Умови використання
           </Link>
-          <Link href="#" className="text-md text-muted-foreground hover:text-foreground">
+          <Link
+            href="#"
+            className="text-md text-muted-foreground hover:text-foreground"
+          >
             Політика конфіденційності
           </Link>
-          <Link href="#" className="text-md text-muted-foreground hover:text-foreground">
+          <Link
+            href="#"
+            className="text-md text-muted-foreground hover:text-foreground"
+          >
             Контакти
           </Link>
         </div>
         <div className="flex gap-4">
-          <Link href="#" className="text-muted-foreground hover:text-foreground">
+          <Link
+            href="#"
+            className="text-muted-foreground hover:text-foreground"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -38,7 +53,10 @@ const Footer = () => {
             </svg>
             <span className="sr-only">Facebook</span>
           </Link>
-          <Link href="#" className="text-muted-foreground hover:text-foreground">
+          <Link
+            href="#"
+            className="text-muted-foreground hover:text-foreground"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -57,7 +75,10 @@ const Footer = () => {
             </svg>
             <span className="sr-only">Instagram</span>
           </Link>
-          <Link href="#" className="text-muted-foreground hover:text-foreground">
+          <Link
+            href="#"
+            className="text-muted-foreground hover:text-foreground"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -76,13 +97,13 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-      <div className="container px-4 mx-auto md:px-6 mt-5">
-        <p className="text-center text-sm text-muted-foreground">
+      <div className="container mx-auto mt-5 px-4 md:px-6">
+        <p className="text-muted-foreground text-center text-sm">
           &copy; {new Date().getFullYear()} Sikorsky Devs. Всі права захищені.
         </p>
       </div>
     </footer>
-  )
-}
+  );
+};
 
 export default Footer;
