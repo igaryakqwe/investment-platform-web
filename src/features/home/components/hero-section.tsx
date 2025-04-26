@@ -64,23 +64,22 @@ export function HeroSection() {
             <motion.div variants={itemVariants} className="space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
                 <Sparkles className="h-4 w-4" />
-                <span>Інноваційна платформа</span>
+                <span>Innovative platform</span>
               </div>
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                Відбудова України через <span className="text-primary">інвестиції в обладнання</span>
+                Rebuilding Ukraine through <span className="text-primary">investments in equipment</span>
               </h1>
               <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                Платформа, що з&#39;єднує проєкти відбудови з бізнесами, які можуть інвестувати не гроші, а необхідне
-                обладнання та техніку.
+                A platform that connects reconstruction projects with businesses that can invest not money, but the necessary equipment and machinery.
               </p>
             </motion.div>
             <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row">
               <Button size="lg" className="gap-1 rounded-full group">
-                Розпочати проєкт
+                Start a project
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button variant="outline" size="lg" className="rounded-full">
-                Стати інвестором
+                Become an investor
               </Button>
             </motion.div>
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
@@ -95,11 +94,11 @@ export function HeroSection() {
                     </div>
                   ))}
                 </div>
-                <span className="text-sm text-muted-foreground">+500 проєктів вже на платформі</span>
+                <span className="text-sm text-muted-foreground">+500 projects already on the platform</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                <span className="text-sm text-muted-foreground">Онлайн підтримка 24/7</span>
+                <span className="text-sm text-muted-foreground">Online support 24/7</span>
               </div>
             </motion.div>
           </div>
@@ -111,14 +110,14 @@ export function HeroSection() {
                   src="/placeholder.svg?height=600&width=800"
                   width={800}
                   height={600}
-                  alt="Відбудова України"
+                  alt="Rebuilding Ukraine"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 right-4">
                   <div className="text-white">
-                    <div className="text-sm font-medium opacity-80">Популярний проєкт</div>
-                    <div className="text-xl font-bold">Відновлення електростанції</div>
+                    <div className="text-sm font-medium opacity-80">Popular project</div>
+                    <div className="text-xl font-bold">Power plant restoration</div>
                   </div>
                 </div>
               </div>
@@ -128,14 +127,14 @@ export function HeroSection() {
                     <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                       <Zap className="h-4 w-4 text-primary" />
                     </div>
-                    <span className="font-medium">Енергетика</span>
+                    <span className="font-medium">Energy</span>
                   </div>
-                  <div className="text-sm text-muted-foreground">Потрібно: 15 трансформаторів</div>
+                  <div className="text-sm text-muted-foreground">Required: 15 transformers</div>
                 </div>
                 <div className="space-y-3">
                   <div>
                     <div className="flex justify-between text-sm mb-1">
-                      <span>Прогрес</span>
+                      <span>Progress</span>
                       <span className="font-medium">65%</span>
                     </div>
                     <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
@@ -143,7 +142,7 @@ export function HeroSection() {
                     </div>
                   </div>
                   <Button variant="outline" size="sm" className="w-full rounded-full">
-                    Переглянути деталі
+                    View details
                     <ArrowUpRight className="ml-1 h-4 w-4" />
                   </Button>
                 </div>
@@ -164,10 +163,10 @@ export function HeroSection() {
           className="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8"
         >
           {[
-            { label: "Проєктів", value: "500+" },
-            { label: "Інвесторів", value: "250+" },
-            { label: "Успішних кейсів", value: "120+" },
-            { label: "Обладнання", value: "₴500M+" },
+            { label: "Projects", value: "500+" },
+            { label: "Investors", value: "250+" },
+            { label: "Successful cases", value: "120+" },
+            { label: "Equipment", value: "₴500M+" },
           ].map((stat, index) => (
             <div key={index} className="rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm p-4 md:p-6">
               <div className="text-2xl md:text-3xl font-bold text-primary">{stat.value}</div>

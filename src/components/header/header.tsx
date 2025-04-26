@@ -29,18 +29,18 @@ const Header = () => {
   
   const navItems = isHomePage
     ? [
-      { name: "Головна", id: "hero", href: "/" },
-      { name: "Як це працює", id: "how-it-works", href: "/#how-it-works" },
-      { name: "Проєкти", id: "projects", href: "/#projects" },
-      { name: "Переваги", id: "benefits", href: "/#benefits" },
-      { name: "Контакти", id: "contact", href: "/#contact" },
+      { name: "Home", id: "hero", href: "/" },
+      { name: "How it works", id: "how-it-works", href: "/#how-it-works" },
+      { name: "Projects", id: "projects", href: "/#projects" },
+      { name: "Benefits", id: "benefits", href: "/#benefits" },
+      { name: "Contacts", id: "contact", href: "/#contact" },
     ]
     : [
-      { name: "Головна", id: "", href: "/" },
-      { name: "Проєкти", id: "", href: "/projects" },
-      { name: "Про нас", id: "", href: "/about" },
-      { name: "Блог", id: "", href: "/blog" },
-      { name: "Контакти", id: "", href: "/contact" },
+      { name: "Home", id: "", href: "/" },
+      { name: "Projects", id: "", href: "/projects" },
+      { name: "About us", id: "", href: "/about" },
+      { name: "Blog", id: "", href: "/blog" },
+      { name: "Contacts", id: "", href: "/contact" },
     ]
   
   return (

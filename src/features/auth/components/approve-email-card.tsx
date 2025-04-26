@@ -24,7 +24,7 @@ const ApproveEmailCard = () => {
     try {
       await emailApprove(token);
       setStatus("success");
-      toast.success("Пошту підтверджено успішно");
+      toast.success("Email verified successfully");
     } catch (e) {
       if (e instanceof Error) {
         toast.error(e.message);
@@ -37,7 +37,7 @@ const ApproveEmailCard = () => {
     if (!email) return;
     try {
       await emailResend({ email: email });
-      toast.success("Лист підтвердження надіслано повторно");
+      toast.success("Confirmation email resent");
     } catch (e) {
       if (e instanceof Error) {
         toast.error(e.message);
@@ -53,7 +53,7 @@ const ApproveEmailCard = () => {
     <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle className="text-center text-2xl">
-          Підтвердження пошти
+          Mail confirmation
         </CardTitle>
       </CardHeader>
       <CardContent className="text-center">
@@ -65,7 +65,7 @@ const ApproveEmailCard = () => {
             <div className="flex items-center justify-center space-x-2 text-green-600">
               <CheckCircle2 className="h-6 w-6" />
               <span className="text-md font-semibold">
-                Пошту підтверджено успішно!
+                Email confirmed successfully!
               </span>
             </div>
             <Link
@@ -75,7 +75,7 @@ const ApproveEmailCard = () => {
               )}
               href={ROUTES.SIGN_UP}
             >
-              Повернутися до входу
+              Return to login
             </Link>
           </>
         )}
@@ -84,7 +84,7 @@ const ApproveEmailCard = () => {
             <div className="flex items-center justify-center space-x-2 text-red-600">
               <XCircle className="h-6 w-6" />
               <span className="text-md font-semibold">
-                Не вдалося підтвердити пошту.
+                Email verification failed.
               </span>
             </div>
             <Button
@@ -93,7 +93,7 @@ const ApproveEmailCard = () => {
               size="lg"
               className="mt-4"
             >
-              Спробувати ще раз
+              Try again
             </Button>
           </>
         )}

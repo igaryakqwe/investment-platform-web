@@ -16,12 +16,12 @@ const PLACEHOLDERS_MAP: Record<ContactsType, string> = {
   VIBER: "+380501234567",
   TELEGRAM: "@username",
   WHATSAPP: "+380501234567",
-  FACEBOOK: "username або посилання",
-  OTHER: "Введіть значення контакту",
+  FACEBOOK: "username or link",
+  OTHER: "Enter contact value",
 };
 
 export const getPlaceholder = (type: ContactsType | undefined) => {
-  if (!type) return "Введіть значення контакту";
+  if (!type) return "Enter contact value";
   return PLACEHOLDERS_MAP[type];
 };
 

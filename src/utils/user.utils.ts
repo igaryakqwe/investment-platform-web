@@ -22,10 +22,10 @@ export const getFullName = (
   }
   if (firstName && lastName) return `${firstName} ${lastName}`;
   if (firstName && !lastName) return firstName;
-  return "Не вказано";
+  return "Not specified";
 };
 
 export const getUserType = (user: User) => {
-  if (user.isLegal) return "Юридична особа";
-  return "Фізична особа";
+  if (user.isLegal) return "Legal entity";
+  return "Individual";
 };

@@ -8,16 +8,16 @@ const Footer = () => {
         <Logo/>
         <div className="flex gap-4">
           <Link href="#" className="text-md text-muted-foreground hover:text-foreground">
-            Про нас
+            About Us
           </Link>
           <Link href="#" className="text-md text-muted-foreground hover:text-foreground">
-            Умови використання
+            Terms of Use
           </Link>
           <Link href="#" className="text-md text-muted-foreground hover:text-foreground">
-            Політика конфіденційності
+            Privacy Policy
           </Link>
           <Link href="#" className="text-md text-muted-foreground hover:text-foreground">
-            Контакти
+            Contact
           </Link>
         </div>
         <div className="flex gap-4">
@@ -78,7 +78,7 @@ const Footer = () => {
       </div>
       <div className="container px-4 mx-auto md:px-6 mt-5">
         <p className="text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Sikorsky Devs. Всі права захищені.
+          &copy; {new Date().getFullYear()} Sikorsky Devs. All rights reserved.
         </p>
       </div>
     </footer>

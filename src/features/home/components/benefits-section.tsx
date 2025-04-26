@@ -7,31 +7,31 @@ import { Sparkles } from "lucide-react"
 export function BenefitsSection() {
   const benefitsForProjects = [
     {
-      title: "Швидкий доступ до обладнання",
-      description: "Отримайте необхідне обладнання без значних початкових інвестицій.",
+      title: "Quick access to equipment",
+      description: "Get the equipment you need without a significant initial investment.",
     },
     {
-      title: "Широка мережа постачальників",
-      description: "Доступ до великої бази виробників та постачальників обладнання.",
+      title: "Wide network of suppliers",
+      description: "Access to a large database of equipment manufacturers and suppliers.",
     },
     {
-      title: "Прозорий процес",
-      description: "Чіткі умови співпраці та відстеження виконання зобов'язань.",
+      title: "Transparent process",
+      description: "Clear terms of cooperation and tracking of fulfillment of obligations.",
     },
   ]
   
   const benefitsForInvestors = [
     {
-      title: "Нові ринки збуту",
-      description: "Розширення ринків збуту для вашої продукції та обладнання.",
+      title: "New sales markets",
+      description: "Expanding markets for your products and equipment.",
     },
     {
-      title: "Стабільний дохід",
-      description: "Отримання частки від прибутку проєктів протягом тривалого часу.",
+      title: "Stable income",
+      description: "Receiving a share of the profits of projects over a long period of time.",
     },
     {
-      title: "Соціальний вплив",
-      description: "Участь у відбудові України та підтримка економічного розвитку.",
+      title: "Social impact",
+      description: "Participation in the reconstruction of Ukraine and support for economic development.",
     },
   ]
   
@@ -47,13 +47,13 @@ export function BenefitsSection() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
             <Sparkles className="h-4 w-4" />
-            <span>Переваги</span>
+            <span>Benefits</span>
           </div>
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight max-w-2xl">
-            Чому варто долучитися до <span className="text-primary">платформи</span>
+            Why join the <span className="text-primary">platform</span>
           </h2>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-            Наша платформа пропонує унікальні можливості як для власників проєктів, так і для інвесторів.
+            Our platform offers unique opportunities for both project owners and investors.
           </p>
         </motion.div>
         
@@ -71,7 +71,7 @@ export function BenefitsSection() {
                 <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold text-sm">
                   1
                 </div>
-                Для власників проєктів
+                For project owners
               </h3>
               <ul className="space-y-6">
                 {benefitsForProjects.map((benefit, index) => (
@@ -122,7 +122,7 @@ export function BenefitsSection() {
                 <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold text-sm">
                   2
                 </div>
-                Для інвесторів
+                For investors
               </h3>
               <ul className="space-y-6">
                 {benefitsForInvestors.map((benefit, index) => (
@@ -173,17 +173,17 @@ export function BenefitsSection() {
           
           <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center justify-between">
             <div className="text-center md:text-left">
-              <h3 className="text-2xl font-bold">Готові розпочати?</h3>
+              <h3 className="text-2xl font-bold">Ready to get started?</h3>
               <p className="text-muted-foreground mt-2 max-w-md">
-                Приєднуйтесь до платформи сьогодні та станьте частиною відбудови України.
+                Join the platform today and become part of the reconstruction of Ukraine.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg">
-                Створити проєкт
+                Create a project
               </Button>
               <Button variant="outline" size="lg">
-                Стати інвестором
+                Become an investor
               </Button>
             </div>
           </div>

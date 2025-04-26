@@ -32,7 +32,7 @@ const SignInForm = ({ className }: SignInFormProps) => {
       const { token } = await signIn(data);
       setAuthToken(token);
       await getUser();
-      toast.success("Ви успішно увійшли в акаунт");
+      toast.success("You have successfully logged in.");
       replace(ROUTES.HOME);
     } catch (e) {
       if (e instanceof Error) toast.error(e.message);
@@ -46,9 +46,9 @@ const SignInForm = ({ className }: SignInFormProps) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Вхід</h1>
+        <h1 className="text-2xl font-bold">Sign in</h1>
         <p className="text-muted-foreground text-sm text-balance">
-          Введіть свої дані, щоб увійти в систему
+          Enter your details to log in.
         </p>
       </div>
       <div className="grid gap-4">
@@ -62,19 +62,19 @@ const SignInForm = ({ className }: SignInFormProps) => {
         />
         <Input
           id="password"
-          label="Пароль"
+          label="Password"
           error={errors.password?.message}
           type="password"
           {...register("password")}
         />
         <Button isLoading={isSubmitting} type="submit" className="w-full">
-          Увійти
+          Sign in
         </Button>
       </div>
       <div className="text-center text-sm">
-        Не маєш аккаунту?{" "}
+        You do not have an account?{" "}
         <a href={ROUTES.SIGN_UP} className="underline underline-offset-4">
-          Зареєструватися
+          Sign up
         </a>
       </div>
     </form>

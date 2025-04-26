@@ -6,11 +6,16 @@ import { ProjectCard } from "./components/project-card";
 // import { CreateProjectModal } from "@/components/projects/create-project-modal"
 import { Plus, Sparkles } from "lucide-react";
 import useProjectsQuery from "@/hooks/use-projects-query";
+import { parseAsString, useQueryState } from "nuqs";
+import SearchField from "@/features/projects/components/search-field";
+import useDebounce from "@/hooks/use-debounce";
 
 const ProjectsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [search] = useQueryState("search", parseAsString.withDefault(""));
+  const debouncedSearch = useDebounce(search, 300);
 
-  const { projects } = useProjectsQuery({});
+  const { projects } = useProjectsQuery({ search: debouncedSearch });
 
   return (
     <div className="container px-4 py-8 md:px-6 md:py-24">
@@ -18,15 +23,14 @@ const ProjectsPage = () => {
         <div className="mb-4 space-y-3 md:mb-0">
           <div className="bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium">
             <Sparkles className="h-4 w-4" />
-            <span>Проєкти відбудови</span>
+            <span>Reconstruction Projects</span>
           </div>
           <h1 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-            Проєкти, які шукають{" "}
-            <span className="text-primary">інвесторів</span>
+            Projects Seeking{" "}
+            <span className="text-primary">Investors</span>
           </h1>
           <p className="text-muted-foreground max-w-[700px] md:text-lg">
-            Ознайомтеся з проєктами, які потребують обладнання для відбудови та
-            розвитку.
+            Explore projects that need equipment for reconstruction and development.
           </p>
         </div>
         <Button
@@ -35,8 +39,12 @@ const ProjectsPage = () => {
           className="gap-2 rounded-full"
         >
           <Plus className="h-5 w-5" />
-          Створити проєкт
+          Create Project
         </Button>
+      </div>
+
+      <div className="mb-5">
+        <SearchField />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
