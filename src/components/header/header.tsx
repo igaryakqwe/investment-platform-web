@@ -56,7 +56,7 @@ const Header = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="relative text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                  className="relative text-sm font-medium transition-colors hover:text-primary hover:cursor-pointer text-muted-foreground"
                 >
                   {item.name}
                 </button>
@@ -83,7 +83,7 @@ const Header = () => {
           </nav>
           
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex gap-2">
+            <div className="hidden md:flex gap-2">
               <Link href={ROUTES.SIGN_IN} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "rounded-full")}>
                 Увійти
               </Link>

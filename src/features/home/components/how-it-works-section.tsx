@@ -28,7 +28,7 @@ export function HowItWorksSection() {
   ]
   
   return (
-    <section id="how-it-works" className="w-full py-20 md:py-32 relative">
+    <section id="how-it-works" className="w-full py-20 md:pb-32 pt-0 relative">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

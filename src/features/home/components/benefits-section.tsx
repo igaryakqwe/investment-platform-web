@@ -36,7 +36,7 @@ export function BenefitsSection() {
   ]
   
   return (
-    <section id="benefits" className="w-full py-20 md:py-32 relative">
+    <section id="benefits" className="w-full py-20 md:pb-32 pt-0 relative">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -179,10 +179,10 @@ export function BenefitsSection() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button size="lg" className="rounded-full">
+              <Button size="lg">
                 Створити проєкт
               </Button>
-              <Button variant="outline" size="lg" className="rounded-full">
+              <Button variant="outline" size="lg">
                 Стати інвестором
               </Button>
             </div>

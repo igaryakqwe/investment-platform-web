@@ -2,9 +2,11 @@
 
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { ArrowRight, Sparkles, ArrowUpRight } from "lucide-react"
+import { ROUTES } from "@/constants/navigation";
+import Link from "next/link";
 
 export function ProjectsSection() {
   const projects = [
@@ -38,7 +40,7 @@ export function ProjectsSection() {
   ]
   
   return (
-    <section id="projects" className="w-full py-20 md:py-32 relative">
+    <section id="projects" className="w-full py-20 md:pb-32 pt-0 relative">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -122,7 +124,7 @@ export function ProjectsSection() {
                 <CardFooter>
                   <Button
                     variant="outline"
-                    className="w-full rounded-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                    className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
                   >
                     Детальніше
                     <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -140,10 +142,10 @@ export function ProjectsSection() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="mt-12 flex justify-center"
         >
-          <Button variant="outline" size="lg" className="rounded-full">
+          <Link href={ROUTES.PROJECTS} className={buttonVariants({ variant: "outline", size: "lg" })}>
             Переглянути всі проєкти
             <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
