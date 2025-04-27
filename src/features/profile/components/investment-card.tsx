@@ -26,9 +26,7 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
     certificate,
     isLoading: isCertLoading,
     isError: isCertError,
-  } = useCertificateQuery(investment.id)
-  
-  console.log(certificate);
+  } = useCertificateQuery(investment.investmentId)
   
   const downloadBlob = useCallback((blob: Blob, fileName: string) => {
     const url = window.URL.createObjectURL(blob)
@@ -41,11 +39,11 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
     window.URL.revokeObjectURL(url)
   }, [])
   
-  const handleGetCertificate = useCallback(() => {
+  const handleGetCertificate = () => {
     if (certificate) {
       downloadBlob(certificate, `certificate_${investment.id}.pdf`)
     }
-  }, [certificate, downloadBlob, investment.id])
+  }
   
   return (
     <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/20">
