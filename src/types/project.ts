@@ -1,3 +1,5 @@
+import type { User } from "@/types/user";
+
 export interface Project {
   name: string;
   id: string;
@@ -34,4 +36,5 @@ export interface Investment {
   userId: string;
   amount: number;
   createdAt: string;
+  user: User;
 }

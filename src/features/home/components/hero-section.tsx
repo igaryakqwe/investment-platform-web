@@ -3,14 +3,24 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { ArrowRight, Zap, Sparkles, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles, Zap } from "lucide-react";
 import useAuthStore from "@/store/use-auth-store";
 import { ROUTES } from "@/constants/navigation";
 import Link from "next/link";
 import { cn } from "@/utils/styles.utils";
+import type { Project } from "@/types/project";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  projects: Project[];
+}
+
+export function HeroSection({ projects }: HeroSectionProps) {
   const { user } = useAuthStore();
+
+  const imageUrl =
+    projects?.at(0)?.photos?.find((p) => p.isMain)?.link ??
+    projects.at(0)?.photos.at(0)?.link;
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -39,6 +49,8 @@ export function HeroSection() {
       transition: { duration: 0.8 },
     },
   };
+
+  console.log(imageUrl);
 
   return (
     <section
@@ -90,7 +102,7 @@ export function HeroSection() {
               <Link
                 href={{
                   pathname: user ? ROUTES.PROJECTS : ROUTES.SIGN_IN,
-                  query: { showModal: true }
+                  query: { showModal: true },
                 }}
                 className={cn(buttonVariants({ size: "lg" }), "group gap-1")}
               >
@@ -106,19 +118,9 @@ export function HeroSection() {
             </motion.div>
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap gap-4 pt-4"
+              className="flex flex-wrap gap-4 pt-2"
             >
-              <div className="flex items-center gap-2">
-                <div className="flex -space-x-2">
-                  {[1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="bg-muted border-background flex h-8 w-8 items-center justify-center rounded-full border-2"
-                    >
-                      <span className="text-xs font-medium">{i}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="flex items-center gap-2 pl-2">
                 <span className="text-muted-foreground text-sm">
                   +500 projects already on the platform
                 </span>
@@ -139,7 +141,7 @@ export function HeroSection() {
             <div className="border-border/50 bg-card/50 relative z-10 overflow-hidden rounded-2xl border shadow-xl backdrop-blur-sm">
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/placeholder.svg?height=600&width=800"
+                  src={imageUrl ?? ""}
                   width={800}
                   height={600}
                   alt="Rebuilding Ukraine"
@@ -149,10 +151,10 @@ export function HeroSection() {
                 <div className="absolute right-4 bottom-4 left-4">
                   <div className="text-white">
                     <div className="text-sm font-medium opacity-80">
-                      Popular project
+                      {projects.at(0)?.description}
                     </div>
                     <div className="text-xl font-bold">
-                      Power plant restoration
+                      {projects.at(0)?.name}
                     </div>
                   </div>
                 </div>
@@ -166,7 +168,7 @@ export function HeroSection() {
                     <span className="font-medium">Energy</span>
                   </div>
                   <div className="text-muted-foreground text-sm">
-                    Required: 15 transformers
+                    Required: {projects.at(0)?.products.length} products
                   </div>
                 </div>
                 <div className="space-y-3">
@@ -182,14 +184,16 @@ export function HeroSection() {
                       ></div>
                     </div>
                   </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full rounded-full"
+                  <Link
+                    href={`/${ROUTES.PROJECTS}/${projects.at(0)?.id}`}
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "w-full",
+                    )}
                   >
                     View details
                     <ArrowUpRight className="ml-1 h-4 w-4" />
-                  </Button>
+                  </Link>
                 </div>
               </div>
             </div>

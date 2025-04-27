@@ -1,119 +1,121 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { motion } from "framer-motion"
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { ArrowRight, Sparkles, ArrowUpRight } from "lucide-react"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { ArrowRight, Sparkles, ArrowUpRight } from "lucide-react";
 import { ROUTES } from "@/constants/navigation";
 import Link from "next/link";
+import type { Project } from "@/types/project";
+import { cn } from "@/utils/styles.utils";
 
-export function ProjectsSection() {
-  const projects = [
-    {
-      title: "Power Plant Restoration",
-      category: "Energy",
-      image: "/placeholder.svg?height=300&width=400",
-      needs: "transformers, generators, cables",
-      roi: "15-20% annually",
-      progress: 65,
-      delay: 0,
-    },
-    {
-      title: "Water Treatment Plant Reconstruction",
-      category: "Infrastructure",
-      image: "/placeholder.svg?height=300&width=400",
-      needs: "filters, pumps, pipes",
-      roi: "12-18% annually",
-      progress: 40,
-      delay: 0.1,
-    },
-    {
-      title: "Bread Factory Modernization",
-      category: "Food Industry",
-      image: "/placeholder.svg?height=300&width=400",
-      needs: "ovens, dough mixers",
-      roi: "20-25% annually",
-      progress: 80,
-      delay: 0.2,
-    },
-  ]
+interface ProjectsSectionProps {
+  projects: Project[];
+}
+
+export function ProjectsSection({ projects }: ProjectsSectionProps) {
+  const getProgress = (project: Project) => {
+    const totalNeeded = project.products.reduce(
+      (sum, product) => sum + product.amount,
+      0,
+    );
+    const totalRaised = project.products.reduce((sum, product) => {
+      const productInvestments =
+        product.investments?.reduce((invSum, inv) => invSum + inv.amount, 0) ??
+        0;
+      return sum + productInvestments;
+    }, 0);
+    return totalNeeded > 0 ? (totalRaised / totalNeeded) * 100 : 0;
+  };
 
   return (
-    <section id="projects" className="w-full py-20 md:pb-32 pt-0 relative">
-      <div className="container px-4 md:px-6">
+    <section id="projects" className="relative w-full py-20 pt-0 md:pb-32">
+      <div className="container px-4 md:px-6 mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center space-y-4 text-center mb-12"
+          className="mb-12 flex flex-col items-center space-y-4 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+          <div className="bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium">
             <Sparkles className="h-4 w-4" />
             <span>Current Projects</span>
           </div>
-          <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight max-w-2xl">
+          <h2 className="max-w-2xl text-3xl font-bold tracking-tighter md:text-4xl/tight">
             Projects Seeking <span className="text-primary">Investors</span>
           </h2>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-            Explore projects in need of equipment for reconstruction and development.
+          <p className="text-muted-foreground mx-auto max-w-[700px] md:text-lg">
+            Explore projects in need of equipment for reconstruction and
+            development.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {projects.map((project, index) => (
+        <div className="grid gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+          {projects.slice(0, 3).map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ delay: project.delay, duration: 0.5 }}
+              transition={{ delay: index / 10, duration: 0.5 }}
               whileHover={{ y: -5 }}
               className="group"
             >
-              <Card className="overflow-hidden h-full border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20">
+              <Card className="border-border/50 bg-card/50 hover:shadow-primary/5 hover:border-primary/20 h-full overflow-hidden backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
                 <div className="relative">
                   <div className="aspect-[16/9] overflow-hidden">
                     <Image
-                      src={project.image || "/placeholder.svg"}
+                      src={
+                        project.photos.find((p) => p.isMain)?.link ??
+                        project.photos.at(0)?.link ??
+                        ""
+                      }
                       width={400}
                       height={300}
-                      alt={project.title}
+                      alt={project.name}
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
-                  <div className="absolute top-3 left-3 px-2 py-1 rounded-full bg-background/80 backdrop-blur-sm text-xs font-medium">
-                    {project.category}
+                  <div className="bg-background/80 absolute top-3 left-3 rounded-full px-2 py-1 text-xs font-medium backdrop-blur-sm">
+                    {project.projectType}
                   </div>
                 </div>
                 <CardHeader className="pb-2">
-                  <CardTitle>{project.title}</CardTitle>
-                  <CardDescription>Needed: {project.needs}</CardDescription>
+                  <CardTitle>{project.name}</CardTitle>
+                  <CardDescription>
+                    Needed: {project.products.length} transformer
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
-                    <div className="flex justify-between text-sm mb-1">
+                    <div className="mb-1 flex justify-between text-sm">
                       <span>Funding Progress</span>
-                      <span className="font-medium">{project.progress}%</span>
+                      <span className="font-medium">
+                        {getProgress(project)}%
+                      </span>
                     </div>
-                    <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                    <div className="bg-muted h-2 w-full overflow-hidden rounded-full">
                       <div
-                        className="h-full bg-primary rounded-full transition-all duration-500"
-                        style={{ width: `${project.progress}%` }}
+                        className="bg-primary h-full rounded-full transition-all duration-500"
+                        style={{ width: `${getProgress(project)}%` }}
                       ></div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <div className="text-sm">
-                      <span className="text-muted-foreground">Profitability:</span>
-                      <span className="ml-1 font-medium">{project.roi}</span>
-                    </div>
+                  <div className="flex items-center justify-between">
                     <div className="flex -space-x-2">
                       {[1, 2, 3].map((i) => (
                         <div
                           key={i}
-                          className="h-6 w-6 rounded-full bg-muted flex items-center justify-center border-2 border-background"
+                          className="bg-muted border-background flex h-6 w-6 items-center justify-center rounded-full border-2"
                         >
                           <span className="text-xs">{i}</span>
                         </div>
@@ -122,13 +124,16 @@ export function ProjectsSection() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button
-                    variant="outline"
-                    className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                  <Link
+                    href={`${ROUTES.PROJECTS}/${project.id}`}
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "group-hover:bg-primary group-hover:text-primary-foreground w-full transition-colors",
+                    )}
                   >
                     More Details
                     <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </motion.div>
@@ -142,12 +147,15 @@ export function ProjectsSection() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="mt-12 flex justify-center"
         >
-          <Link href={ROUTES.PROJECTS} className={buttonVariants({ variant: "outline", size: "lg" })}>
+          <Link
+            href={ROUTES.PROJECTS}
+            className={buttonVariants({ variant: "outline", size: "lg" })}
+          >
             View All Projects
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
