@@ -25,12 +25,10 @@ const ProfileCard = () => {
   const { replace } = useRouter();
   const { user, isLoading } = useAuthStore();
 
-  const { contacts, isLoading: isContactsLoading } = useContactsQuery(
-    user?.id!,
-  );
+  const { contacts } = useContactsQuery(user?.id ?? "");
 
-  const deleteContactMutation = useDeleteContact(user?.id!);
-  const editContactMutation = useEditContact(user?.id!);
+  const deleteContactMutation = useDeleteContact(user?.id ?? "");
+  const editContactMutation = useEditContact(user?.id ?? "");
 
   const [editingContact, setEditingContact] = useState<string | null>(null);
 

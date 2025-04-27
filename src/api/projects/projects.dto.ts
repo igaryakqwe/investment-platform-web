@@ -1,14 +1,20 @@
 export interface CreateProjectDto {
-  name: string
-  description: string
-  address: string
-  userId: string
+  name: string;
+  description: string;
+  address: string;
+  userId: string;
   photos: {
-    link: string,
-    isMain: boolean
-  }[]
+    link: string;
+    isMain: boolean;
+  }[];
   product: {
-    name: string
-    amount: number
-  }[]
+    name: string;
+    amount: number;
+  }[];
+}
+
+export interface CreateInvestmentDto {
+  userId: string;
+  amount: number;
+  productId: string;
 }
