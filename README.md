@@ -93,31 +93,22 @@ A simplified look at the project layout:
 ```
 ├── public/
 │   ├── favicon.ico
-│   └── images/
-│       ├── pet-auth.jpg
-│       └── pet-hero.webp
+│   └── logo.svg
 └── src/
     ├── api/
     │   ├── auth/
     │   │   ├── auth.api.ts
     │   │   └── auth.dto.ts
-    │   ├── comments/
     │   ├── contacts/
-    │   ├── pets/
-    │   ├── posts/
+    │   ├── projects/
     │   └── users/
     ├── app/
     │   ├── (main)/
     │   │   ├── profile/
-    │   │   │   ├── profile/
-    │   │   │   │   └── page.tsx
-    │   │   │   ├── shelter-profile/
-    │   │   │   │   └── page.tsx
+    │   │   │   ├── page.tsx
     │   │   │   └── layout.tsx
-    │   │   ├── adverts/
-    │   │   ├── posts/
-    │   │   ├── shelters/
-    │   │   │   ├── [id]/
+    │   │   ├── projects/
+    │   │   │   ├── [projectId]/
     │   │   │   │   └── page.tsx
     │   │   │   └── page.tsx
     │   │   ├── layout.tsx
@@ -129,7 +120,9 @@ A simplified look at the project layout:
     │       ├── success/
     │       └── layout.tsx
     ├── components/
+    ├── config/
     ├── constants/
+    ├── context/
     ├── features/
     │   ├── adverts/
     │   ├── auth/
@@ -141,7 +134,6 @@ A simplified look at the project layout:
     │   └── shelters/
     ├── hooks/
     ├── lib/
-    ├── permissions/
     ├── providers/
     ├── store/
     ├── styles/
@@ -159,29 +151,29 @@ A simplified look at the project layout:
     - **api/**  
       Modules responsible for backend communication. These include:
         - **auth/** — Handles authentication-related API functions.
-        - **comments/** — Manages functionalities related to comments.
         - **contacts/** — Responsible for contact data and inquiries.
-        - **pets/** — Manages pet-related API functions.
-        - **posts/** — Handles operations related to posts.
+        - **projects/** — Manages projects-related API functions.
         - **users/** — Manages user-related API functions.
     - **app/**  
       Contains files related to pages and routing:
         - **(main)/** — The main section of the application, including:
-            - **profile/** — Contains pages for both user profiles and shelter profiles.
-            - **adverts/**, **posts/**, and **shelters/** — Sections for adverts, posts, and shelters respectively.
+            - **profile/** — Contains page for user profile.
+            - **projects/** — Section for projects.
         - **auth/** — Dedicated to authentication flows, such as registration, signing in, email approval, and success notifications.
     - **components/**  
       A library of reusable UI components (e.g., buttons, cards, modals, and layout elements).
     - **constants/**  
       Files containing constant values and enumerations used throughout the application.
     - **features/**  
-      Modules encapsulating specific functional features (e.g., adverts, auth, home, posts, profile, shelter, shelter-profile, shelters).
+      Modules encapsulating specific functional features (e.g. auth, home, profile, project, projects).
     - **hooks/**  
       Custom React hooks that encapsulate reusable logic.
     - **lib/**  
       Helper libraries and utilities for API requests, data transformations, and other common tasks.
-    - **permissions/**  
-      Utilities for managing user permissions and access control.
+    - **config/**  
+      Configuration files.
+    - **context/**  
+      Context declaration.
     - **providers/**  
       React context providers for global state management and theming.
     - **store/**  
@@ -198,7 +190,7 @@ A simplified look at the project layout:
 You are welcome to contribute in any of the following ways:
 
 1. Report or fix bugs.
-2. Implement new features (e.g., filters, pet categories, maps).
+2. Implement new features (e.g., filters, blog, maps).
 3. Improve UI/UX or accessibility.
 4. Refactor or improve code readability.
 
