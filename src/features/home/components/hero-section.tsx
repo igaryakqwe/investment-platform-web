@@ -79,7 +79,10 @@ export function HeroSection() {
             </motion.div>
             <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row">
               <Link
-                href={user ? ROUTES.PROJECTS : ROUTES.SIGN_IN}
+                href={{
+                  pathname: user ? ROUTES.PROJECTS : ROUTES.SIGN_IN,
+                  query: { showModal: true }
+                }}
                 className={cn(buttonVariants({ size: "lg" }), "gap-1 group")}
               >
                 Start a project

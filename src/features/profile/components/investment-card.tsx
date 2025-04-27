@@ -8,21 +8,49 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowUpRight, Calendar, DollarSign } from "lucide-react";
+import { ArrowUpRight, Calendar, DollarSign, Star } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import type { Investment } from "@/types/investment";
+import useCertificateQuery from "@/features/profile/hooks/use-certificate-query";
+import { useCallback } from "react";
 
 interface InvestmentCardProps {
   investment: Investment;
 }
 
 export function InvestmentCard({ investment }: InvestmentCardProps) {
-  const createdDate = new Date(investment.createdAt);
-  const timeAgo = formatDistanceToNow(createdDate, { addSuffix: true });
-
+  const createdDate = new Date(investment.createdAt)
+  const timeAgo = formatDistanceToNow(createdDate, { addSuffix: true })
+  
+  const {
+    certificate,
+    isLoading: isCertLoading,
+    isError: isCertError,
+  } = useCertificateQuery(investment.id)
+  
+  console.log(certificate);
+  
+  const downloadBlob = useCallback((blob: Blob, fileName: string) => {
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = url
+    link.download = fileName
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    window.URL.revokeObjectURL(url)
+  }, [])
+  
+  const handleGetCertificate = useCallback(() => {
+    if (certificate) {
+      downloadBlob(certificate, `certificate_${investment.id}.pdf`)
+    }
+  }, [certificate, downloadBlob, investment.id])
+  
   return (
-    <Card className="border-border/50 bg-card/50 hover:shadow-primary/5 hover:border-primary/20 group overflow-hidden backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
+    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/20">
       <div className="flex flex-col md:flex-row">
+        {/* Зображення інвестиції */}
         <div className="relative w-full md:w-48">
           <div className="aspect-video h-full overflow-hidden md:aspect-square">
             <Image
@@ -37,7 +65,8 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
             Investment
           </div>
         </div>
-
+        
+        {/* Контент */}
         <CardContent className="flex flex-1 flex-col p-4">
           <div className="flex-1">
             <div className="mb-1 flex items-center justify-between">
@@ -54,11 +83,11 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
                 </span>
               </div>
             </div>
-
+            
             <p className="text-muted-foreground mb-3 line-clamp-2 text-sm">
               {investment.description}
             </p>
-
+            
             <div className="mt-auto flex items-center justify-between">
               <div className="text-sm">
                 <span className="text-muted-foreground">Product:</span>
@@ -66,20 +95,33 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
                   {investment.productName}
                 </span>
               </div>
-
               <div className="text-muted-foreground flex items-center gap-1 text-xs">
                 <Calendar className="h-3 w-3" />
                 <span>Posted {timeAgo}</span>
               </div>
             </div>
           </div>
-
-          <div className="mt-4 flex justify-end">
+          
+          {/* Дії */}
+          <div className="mt-4 flex justify-end gap-2">
             <Button
-              variant="outline"
               size="sm"
-              className="group-hover:bg-primary group-hover:text-primary-foreground rounded-full transition-colors"
+              onClick={handleGetCertificate}
+              disabled={isCertLoading || isCertError || !certificate}
             >
+              {isCertLoading
+                ? "Loading..."
+                : certificate
+                  ? (
+                    <>
+                      <Star className="mr-1 h-4 w-4" />
+                      Get certificate
+                    </>
+                  )
+                  : "Unavailable"}
+            </Button>
+            
+            <Button variant="outline" size="sm">
               View Details
               <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Button>
@@ -87,5 +129,5 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
         </CardContent>
       </div>
     </Card>
-  );
+  )
 }

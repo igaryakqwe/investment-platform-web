@@ -95,6 +95,27 @@ export const getUserInvestments = async (userId: string) => {
   }
 };
 
+export const getInvestmentCertificate = async (investmentId: string) => {
+  try {
+    const response = await fetch(`${API_URL}/investments/${investmentId}/certificates`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/pdf",
+        ...generateAuthHeaders(),
+      },
+    });
+    
+    if (!response.ok) {
+      const error = (await response.json()) as ErrorResponse;
+      throw new Error(error.message);
+    }
+    
+    return (await response.blob());
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const getUserById = async (userId: string) => {
   try {
     const response = await fetch(`${API_URL}/users/${userId}`, {
