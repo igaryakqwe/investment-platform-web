@@ -54,9 +54,6 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
-          <div className="bg-background/80 absolute top-3 left-3 rounded-full px-2 py-1 text-xs font-medium backdrop-blur-sm">
-            Investment
-          </div>
         </div>
 
         {/* Контент */}
