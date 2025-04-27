@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "./components/project-card";
 import { CreateProjectModal } from "./components/create-project-modal"
@@ -12,21 +11,45 @@ import useDebounce from "@/hooks/use-debounce";
 import { usePagination } from "@/hooks/use-pagination";
 import PaginationControls from "@/components/pagination-controls";
 import { ProjectCardSkeleton } from "@/features/projects/components/project-card-skeleton";
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams, usePathname } from "next/navigation"
 
 const ProjectsPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [search] = useQueryState("search", parseAsString.withDefault(""));
-  const debouncedSearch = useDebounce(search, 300);
-
-  const { projects, isLoading } = useProjectsQuery({ search: debouncedSearch });
-
+  const [search] = useQueryState("search", parseAsString.withDefault(""))
+  const debouncedSearch = useDebounce(search, 300)
+  
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  
+  const showModalParam = searchParams.get("showModal") === "true"
+  const [isModalOpen, setIsModalOpen] = useState(showModalParam)
+  
+  useEffect(() => {
+    setIsModalOpen(showModalParam)
+  }, [showModalParam])
+  
+  const openModal = () => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("showModal", "true")
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+  }
+  
+  const closeModal = () => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete("showModal")
+    const qs = params.toString()
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+  }
+  
+  const { projects = [], isLoading } = useProjectsQuery({ search: debouncedSearch })
+  
   const { currentPage, totalPages, currentItems, handlePageChange } =
     usePagination({
       itemsPerPage: 6,
-      totalItems: projects?.length ?? 0,
-    });
-
-  const paginatedProjects = currentItems(projects);
+      totalItems: projects.length,
+    })
+  const paginatedProjects = currentItems(projects)
 
   return (
     <div className="w-full max-w-7xl px-4 py-8 md:px-6 md:py-8">
@@ -45,7 +68,7 @@ const ProjectsPage = () => {
           </p>
         </div>
         <Button
-          onClick={() => setIsModalOpen(true)}
+          onClick={openModal}
           size="lg"
           className="gap-2 rounded-full"
         >
@@ -83,7 +106,7 @@ const ProjectsPage = () => {
       
       <CreateProjectModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={closeModal}
       />
     </div>
   );

@@ -8,9 +8,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { useCreateProjectContext } from "@/context/create-project-context"
 
 const projectInfoSchema = z.object({
-  name: z.string().min(3, "Назва проєкту має містити щонайменше 3 символи"),
-  description: z.string().min(10, "Опис проєкту має містити щонайменше 10 символів"),
-  address: z.string().min(5, "Адреса має містити щонайменше 5 символів"),
+  name: z.string().min(3, "Project name must be at least 3 characters long"),
+  description: z.string().min(10, "Project description must be at least 10 characters long"),
+  address: z.string().min(5, "Address must be at least 5 characters long"),
 })
 
 export type ProjectInfoValues = z.infer<typeof projectInfoSchema>
@@ -27,8 +27,8 @@ export const ProjectInfoStep = () => {
     <form className="space-y-6 p-1">
       <Input
         id="name"
-        label="Назва проєкту"
-        placeholder="Введіть назву проєкту"
+        label="Project name"
+        placeholder="Enter project name"
         error={errors.name?.message}
         {...register("name", {
           onChange: (e) =>
@@ -37,8 +37,8 @@ export const ProjectInfoStep = () => {
       />
       <Textarea
         id="description"
-        label="Опис проєкту"
-        placeholder="Детальний опис проєкту…"
+        label="Project description"
+        placeholder="Detailed description of the project…"
         className="min-h-[120px]"
         error={errors.description?.message}
         {...register("description", {
@@ -48,8 +48,8 @@ export const ProjectInfoStep = () => {
       />
       <Input
         id="address"
-        label="Адреса проєкту"
-        placeholder="Область, місто, вулиця"
+        label="Project address"
+        placeholder="Region, city, street"
         error={errors.address?.message}
         {...register("address", {
           onChange: (e) =>
