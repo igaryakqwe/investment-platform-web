@@ -38,7 +38,7 @@ const ChatPopover = () => {
       <PopoverTrigger asChild>
         <Button
           size="icon"
-          className="fixed right-4 bottom-4 h-12 w-12 rounded-full"
+          className="fixed right-4 bottom-4 z-60 h-12 w-12 rounded-full"
         >
           <MessageCircle className="h-6 w-6" />
         </Button>
