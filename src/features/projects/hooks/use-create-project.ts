@@ -15,9 +15,8 @@ export interface Product {
 
 interface CreateProjectState {
   projectInfo: ProjectInfoValues
-  // userId: string
   projectImages: {
-    link: string,
+    link: string
     isMain: boolean
   }[]
   products: Product[]
@@ -31,7 +30,6 @@ const INITIAL_INFO: ProjectInfoValues = {
 
 const INITIAL_STATE: CreateProjectState = {
   projectInfo: INITIAL_INFO,
-  // userId: "",
   projectImages: [],
   products: [],
 }
@@ -52,11 +50,11 @@ export function useCreateProject() {
     mutationFn: createProject,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["projects"] })
-      toast.success("Проєкт створено")
+      toast.success("Project created successfully")
       resetForm()
     },
     onError: () => {
-      toast.error("Не вдалося створити проєкт. Спробуйте ще раз.")
+      toast.error("Failed to create project. Please try again.")
     },
   })
   
@@ -92,9 +90,9 @@ export function useCreateProject() {
   
   const submitForm = useCallback(async () => {
     const { projectInfo, projectImages, products } = formState
-
+    
     if (!projectInfo || products.length === 0 || projectImages.length === 0) {
-      toast.warn("Будь ласка, заповніть всі обов'язкові поля.")
+      toast.warn("Please fill in all required fields.")
       return false
     }
     const userId = user?.id ?? ""
@@ -127,3 +125,4 @@ export function useCreateProject() {
     isSubmitting,
   }
 }
+
