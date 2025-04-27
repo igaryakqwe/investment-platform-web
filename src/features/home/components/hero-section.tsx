@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { ArrowRight, ArrowUpRight, Sparkles, Zap } from "lucide-react";
 import useAuthStore from "@/store/use-auth-store";
 import { ROUTES } from "@/constants/navigation";

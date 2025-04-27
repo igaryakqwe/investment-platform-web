@@ -1,21 +1,7 @@
 import Image from "next/image";
 import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ArrowUpRight,
-  Calendar,
-  ContainerIcon,
-  DollarSign,
-  PackageCheckIcon,
-  Star,
-} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowUpRight, Calendar, Star } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import type { Investment } from "@/types/investment";
 import useCertificateQuery from "@/features/profile/hooks/use-certificate-query";

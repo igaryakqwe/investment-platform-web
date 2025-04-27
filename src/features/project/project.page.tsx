@@ -7,13 +7,11 @@ import {
   ArrowLeft,
   Calendar,
   MapPin,
-  DollarSign,
   Share2,
   Bookmark,
   ChevronDown,
   ChevronUp,
-  Send,
-  FileBoxIcon,
+
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -60,7 +58,7 @@ interface ProductCardProps {
   currency: string;
 }
 
-const ProductCard = ({ product, currency }: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const totalInvested =
     product.investments?.reduce((sum, inv) => sum + inv.amount, 0) ?? 0;
@@ -142,8 +140,6 @@ const ProjectPage = ({ id }: ProjectPageProps) => {
   const { user } = useAuthStore();
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const [investAmount, setInvestAmount] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState("");
 
   if (!project.products) return null;
 

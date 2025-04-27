@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { createInvestment } from "@/api/projects/projects.api";
 import type { CreateInvestmentDto } from "@/api/projects/projects.dto";
 

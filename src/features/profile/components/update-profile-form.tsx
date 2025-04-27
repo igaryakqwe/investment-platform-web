@@ -6,7 +6,6 @@ import { Camera, X } from "lucide-react";
 import type React from "react";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Controller } from "react-hook-form";
 import { toast } from "sonner";
 
 import { updateUser, updateUserAvatar } from "@/api/users/users.api";
@@ -14,16 +13,8 @@ import { updateUserSchema, type UserUpdateDto } from "@/api/users/users.dto";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import type { User } from "@/types/user";
-import { serialize } from "v8";
 
 interface ProfileUpdateFormProps {
   user: User;
