@@ -59,7 +59,16 @@ export const getUserChats = async (userId: string) => {
       throw new Error(error.message);
     }
 
-    return (await response.json()) as User[];
+    const chats = (await response.json()) as ChatUser[];
+
+    return chats.map((chat) => ({
+      id: chat.userId,
+      name: chat.name,
+      firstName: chat.firstName,
+      lastName: chat.lastName,
+      middleName: chat.middleName,
+      avatarLink: chat.avatarLink,
+    })) as User[];
   } catch (e) {
     throw e;
   }
@@ -101,12 +110,7 @@ export const getUserById = async (userId: string) => {
       throw new Error(error.message);
     }
 
-    const user = (await response.json()) as ChatUser;
-
-    return {
-      ...user,
-      id: user.userId || "/placeholder.svg",
-    } as User;
+    return (await response.json()) as User;
   } catch (e) {
     throw e;
   }

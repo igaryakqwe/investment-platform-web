@@ -44,6 +44,26 @@ export const createProject = async (data: CreateProjectDto) => {
   }
 };
 
+export const getProjectById = async (projectId: string) => {
+  try {
+    const response = await fetch(`${API_URL}/project/${projectId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const error: ErrorResponse = await response.json();
+      throw new Error(error.message);
+    }
+
+    return (await response.json()) as Project;
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const uploadImage = async (data: FormData) => {
   try {
     const response = await fetch(

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,6 +13,8 @@ import type { Project } from "@/types/project";
 import { formatDistanceToNow } from "date-fns";
 import useChatStore from "@/store/use-chat-store";
 import { getUserById } from "@/api/users/users.api";
+import Link from "next/link";
+import { cn } from "@/utils/styles.utils";
 
 interface ProjectCardProps {
   project: Project;
@@ -21,17 +23,16 @@ interface ProjectCardProps {
 export function ProjectCard({ project }: ProjectCardProps) {
   const { addChat, setIsChatOpen, setReceiverId } = useChatStore();
 
-  const mainPhoto = project.photos?.link || "/placeholder.svg";
+  const mainPhoto =
+    project.photos.find((p) => p.isMain)?.link ?? project.photos[0]?.link;
   const totalInvested =
-    project.products?.investments?.reduce(
-      (sum, investment) => sum + investment.amount,
-      0,
-    ) || 0;
-  const progress = project.products?.amount
-    ? Math.min((totalInvested / project.products.amount) * 100, 100)
-    : 0;
+    project.products?.reduce((sum, investment) => sum + investment.amount, 0) ||
+    0;
+  const progress = project.products.reduce((sum, investment) => {
+    return sum + (investment.amount || 0);
+  }, 0);
 
-  const investorCount = project.products?.investments?.length || 0;
+  const investorCount = project.products?.length ?? 0;
   const createdDate = new Date(project.createdAt);
   const timeAgo = formatDistanceToNow(createdDate, { addSuffix: true });
 
@@ -47,7 +48,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <div className="relative">
         <div className="aspect-[16/9] overflow-hidden">
           <Image
-            src={mainPhoto}
+            src={mainPhoto ?? ""}
             width={400}
             height={300}
             alt={project.name}
@@ -93,13 +94,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </CardContent>
       <CardFooter>
         <Button onClick={handleOpenChat}>Chat</Button>
-        <Button
-          variant="outline"
-          className="group-hover:bg-primary group-hover:text-primary-foreground w-full rounded-full transition-colors"
+        <Link
+          href={`/projects/${project.id}`}
+          className={cn(
+            buttonVariants(),
+            "group-hover:bg-primary group-hover:text-primary-foreground w-full rounded-full transition-colors",
+          )}
         >
           View Details
           <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
