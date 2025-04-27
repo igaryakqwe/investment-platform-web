@@ -23,6 +23,8 @@ import useProjectQuery from "@/hooks/use-project-query";
 import type { Products } from "@/types/project";
 import CreateInvestmentModal from "@/features/project/components/create-investment-modal";
 import useAuthStore from "@/store/use-auth-store";
+import UserAvatar from "@/components/user-avatar";
+import { getUserName } from "@/utils/user.utils";
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -71,8 +73,7 @@ const ProductCard = ({ product, currency }: ProductCardProps) => {
         <div className="mb-2 flex items-center justify-between">
           <h3 className="text-lg font-semibold">{product.name}</h3>
           <span className="bg-primary/10 text-primary rounded-full px-2 py-1 text-sm font-medium">
-            {totalInvested.toLocaleString()} / {product.amount.toLocaleString()}{" "}
-            {currency}
+            {totalInvested} / {product.amount}
           </span>
         </div>
 
@@ -108,21 +109,21 @@ const ProductCard = ({ product, currency }: ProductCardProps) => {
                 className="flex items-center justify-between text-sm"
               >
                 <div className="flex items-center gap-2">
-                  <Avatar className="h-8 w-8">
-                    <div className="bg-primary/10 text-primary flex h-full w-full items-center justify-center rounded-full">
-                      {"U"}
-                    </div>
-                  </Avatar>
+                  <UserAvatar image={investment.user.avatarLink} />
                   <div>
-                    <p className="font-medium">123</p>
+                    <p className="font-medium">
+                      {getUserName(
+                        investment.user.name,
+                        investment.user.firstName,
+                        investment.user.lastName,
+                      )}
+                    </p>
                     <p className="text-muted-foreground text-xs">
                       {formatDate(investment.createdAt)}
                     </p>
                   </div>
                 </div>
-                <span className="font-medium">
-                  {investment.amount.toLocaleString()} {currency}
-                </span>
+                <span className="font-medium">Amount: {investment.amount}</span>
               </li>
             ))}
           </ul>
@@ -185,12 +186,6 @@ const ProjectPage = ({ id }: ProjectPageProps) => {
             <div className="text-muted-foreground flex items-center gap-1">
               <Calendar className="h-4 w-4" />
               <span>Created on {formatDate(project.createdAt)}</span>
-            </div>
-            <div className="text-muted-foreground flex items-center gap-1">
-              <DollarSign className="h-4 w-4" />
-              <span>
-                Estimated Cost: {project.estimatedCost} {project.currencyType}
-              </span>
             </div>
           </div>
         </div>
@@ -355,15 +350,11 @@ const ProjectPage = ({ id }: ProjectPageProps) => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-primary/5 rounded-lg p-3 text-center">
                     <p className="text-muted-foreground text-sm">Raised</p>
-                    <p className="text-lg font-semibold">
-                      {raised.toLocaleString()} {project.currencyType}
-                    </p>
+                    <p className="text-lg font-semibold">{raised}</p>
                   </div>
                   <div className="bg-primary/5 rounded-lg p-3 text-center">
                     <p className="text-muted-foreground text-sm">Remaining</p>
-                    <p className="text-lg font-semibold">
-                      {remaining.toLocaleString()} {project.currencyType}
-                    </p>
+                    <p className="text-lg font-semibold">{remaining}</p>
                   </div>
                 </div>
               </div>

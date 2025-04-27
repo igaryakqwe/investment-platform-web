@@ -9,14 +9,6 @@ import { generateAuthHeaders } from "@/utils/auth.utils";
 
 export const createProject = async (data: CreateProjectDto) => {
   try {
-    console.log({
-      ...data,
-      ...{
-        estimatedCost: 0,
-        currencyType: "UAH",
-        projectType: "INVESTMENT",
-      },
-    });
     const response = await fetch(`${API_URL}/project`, {
       method: "POST",
       headers: {

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,48 +8,57 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowUpRight, Calendar, DollarSign, Star } from "lucide-react";
+import {
+  ArrowUpRight,
+  Calendar,
+  ContainerIcon,
+  DollarSign,
+  PackageCheckIcon,
+  Star,
+} from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import type { Investment } from "@/types/investment";
 import useCertificateQuery from "@/features/profile/hooks/use-certificate-query";
 import { useCallback } from "react";
+import Link from "next/link";
+import { ROUTES } from "@/constants/navigation";
 
 interface InvestmentCardProps {
   investment: Investment;
 }
 
 export function InvestmentCard({ investment }: InvestmentCardProps) {
-  const createdDate = new Date(investment.createdAt)
-  const timeAgo = formatDistanceToNow(createdDate, { addSuffix: true })
-  
+  const createdDate = new Date(investment.createdAt);
+  const timeAgo = formatDistanceToNow(createdDate, { addSuffix: true });
+
   const {
     certificate,
     isLoading: isCertLoading,
     isError: isCertError,
-  } = useCertificateQuery(investment.investmentId)
-  
+  } = useCertificateQuery(investment.investmentId);
+
   const downloadBlob = useCallback((blob: Blob, fileName: string) => {
-    const url = window.URL.createObjectURL(blob)
-    const link = document.createElement("a")
-    link.href = url
-    link.download = fileName
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
-    window.URL.revokeObjectURL(url)
-  }, [])
-  
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  }, []);
+
   const handleGetCertificate = () => {
     if (certificate) {
-      downloadBlob(certificate, `certificate_${investment.id}.pdf`)
+      downloadBlob(certificate, `certificate_${investment.id}.pdf`);
     }
-  }
-  
+  };
+
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/20">
+    <Card className="group hover:border-primary/20 overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div className="flex flex-col md:flex-row">
         {/* Зображення інвестиції */}
-        <div className="relative w-full md:w-48">
+        <div className="relative grid w-full place-items-center md:w-48">
           <div className="aspect-video h-full overflow-hidden md:aspect-square">
             <Image
               src={investment.photoLink}
@@ -63,7 +72,7 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
             Investment
           </div>
         </div>
-        
+
         {/* Контент */}
         <CardContent className="flex flex-1 flex-col p-4">
           <div className="flex-1">
@@ -72,20 +81,16 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
                 {investment.name}
               </h3>
               <div className="flex items-center font-medium text-emerald-500">
-                <DollarSign className="mr-1 h-4 w-4" />
                 <span>
-                  {investment.amount.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {investment.productName} - {investment.amount}
                 </span>
               </div>
             </div>
-            
+
             <p className="text-muted-foreground mb-3 line-clamp-2 text-sm">
               {investment.description}
             </p>
-            
+
             <div className="mt-auto flex items-center justify-between">
               <div className="text-sm">
                 <span className="text-muted-foreground">Product:</span>
@@ -99,7 +104,7 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
               </div>
             </div>
           </div>
-          
+
           {/* Дії */}
           <div className="mt-4 flex justify-end gap-2">
             <Button
@@ -107,25 +112,28 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
               onClick={handleGetCertificate}
               disabled={isCertLoading || isCertError || !certificate}
             >
-              {isCertLoading
-                ? "Loading..."
-                : certificate
-                  ? (
-                    <>
-                      <Star className="mr-1 h-4 w-4" />
-                      Get certificate
-                    </>
-                  )
-                  : "Unavailable"}
+              {isCertLoading ? (
+                "Loading..."
+              ) : certificate ? (
+                <>
+                  <Star className="mr-1 h-4 w-4" />
+                  Get certificate
+                </>
+              ) : (
+                "Unavailable"
+              )}
             </Button>
-            
-            <Button variant="outline" size="sm">
+
+            <Link
+              href={`${ROUTES.PROJECTS}/${investment.id}`}
+              className={buttonVariants({ variant: "outline", size: "sm" })}
+            >
               View Details
               <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Button>
+            </Link>
           </div>
         </CardContent>
       </div>
     </Card>
-  )
+  );
 }

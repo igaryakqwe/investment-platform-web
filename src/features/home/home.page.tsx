@@ -2,8 +2,11 @@ import { HeroSection } from "./components/hero-section";
 import { HowItWorksSection } from "./components/how-it-works-section";
 import { ProjectsSection } from "./components/projects-section";
 import { BenefitsSection } from "./components/benefits-section";
+import { getProjects } from "@/api/projects/projects.api";
 
-const Home = () => {
+const Home = async () => {
+  const projects = await getProjects();
+
   return (
     <div className="bg-background flex min-h-screen flex-col overflow-x-hidden">
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
@@ -13,9 +16,9 @@ const Home = () => {
       </div>
 
       <main className="mx-auto w-full max-w-7xl flex-1">
-        <HeroSection />
+        <HeroSection projects={projects} />
         <HowItWorksSection />
-        <ProjectsSection />
+        <ProjectsSection projects={projects} />
         <BenefitsSection />
       </main>
     </div>
