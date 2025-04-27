@@ -24,9 +24,9 @@ const ProfileTabs = () => {
         </TabsList>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-      {TABS.map(({ value, content }) => (
+      {TABS.map(({ value, content: Content }) => (
         <TabsContent key={value} value={value}>
-          {content}
+          <Content />
         </TabsContent>
       ))}
     </Tabs>

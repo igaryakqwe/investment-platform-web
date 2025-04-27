@@ -27,15 +27,14 @@ const ProfileUpdateModal = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button icon={<EditIcon />} className="w-full" variant="outline">
-          Редагувати
+          Edit
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Оновити профіль</DialogTitle>
+          <DialogTitle>Update Profile</DialogTitle>
           <DialogDescription>
-            Заповніть форму, щоб оновити свій профіль. Ви можете змінити
-            особисту інформацію, контактні дані та інші налаштування.
+            Fill out the form to update your profile. You can change personal information, contact details, and other settings.
           </DialogDescription>
         </DialogHeader>
         {user && <ProfileUpdateForm user={user} closeModal={handleClose} />}

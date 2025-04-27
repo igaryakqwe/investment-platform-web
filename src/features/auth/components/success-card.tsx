@@ -14,13 +14,13 @@ const SuccessCard = () => {
           <CheckCircle2 className="text-primary h-8 w-8" />
         </div>
         <CardTitle className="text-center text-2xl">
-          Аккаунт успішно створено
+          Account successfully created
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4 text-center">
-        <h1>Перевірте свою електронну пошту, щоб підтвердити реєстрацію.</h1>
+        <h1>Check your email to confirm your registration.</h1>
         <Link href={ROUTES.SIGN_IN} className={cn(buttonVariants(), "w-full")}>
-          <span>Увійти</span>
+          <span>Sign in</span>
           <ArrowRightIcon />
         </Link>
       </CardContent>

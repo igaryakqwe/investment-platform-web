@@ -11,34 +11,34 @@ import Link from "next/link";
 export function ProjectsSection() {
   const projects = [
     {
-      title: "Відновлення електростанції",
-      category: "Енергетика",
+      title: "Power Plant Restoration",
+      category: "Energy",
       image: "/placeholder.svg?height=300&width=400",
-      needs: "трансформатори, генератори, кабелі",
-      roi: "15-20% річних",
+      needs: "transformers, generators, cables",
+      roi: "15-20% annually",
       progress: 65,
       delay: 0,
     },
     {
-      title: "Відбудова водоочисної станції",
-      category: "Інфраструктура",
+      title: "Water Treatment Plant Reconstruction",
+      category: "Infrastructure",
       image: "/placeholder.svg?height=300&width=400",
-      needs: "фільтри, насоси, труби",
-      roi: "12-18% річних",
+      needs: "filters, pumps, pipes",
+      roi: "12-18% annually",
       progress: 40,
       delay: 0.1,
     },
     {
-      title: "Модернізація хлібозаводу",
-      category: "Харчова промисловість",
+      title: "Bread Factory Modernization",
+      category: "Food Industry",
       image: "/placeholder.svg?height=300&width=400",
-      needs: "печі, тістомісильні машини",
-      roi: "20-25% річних",
+      needs: "ovens, dough mixers",
+      roi: "20-25% annually",
       progress: 80,
       delay: 0.2,
     },
   ]
-  
+
   return (
     <section id="projects" className="w-full py-20 md:pb-32 pt-0 relative">
       <div className="container px-4 md:px-6">
@@ -51,16 +51,16 @@ export function ProjectsSection() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
             <Sparkles className="h-4 w-4" />
-            <span>Актуальні проєкти</span>
+            <span>Current Projects</span>
           </div>
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight max-w-2xl">
-            Проєкти, які шукають <span className="text-primary">інвесторів</span>
+            Projects Seeking <span className="text-primary">Investors</span>
           </h2>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-            Ознайомтеся з проєктами, які потребують обладнання для відбудови та розвитку.
+            Explore projects in need of equipment for reconstruction and development.
           </p>
         </motion.div>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <motion.div
@@ -89,12 +89,12 @@ export function ProjectsSection() {
                 </div>
                 <CardHeader className="pb-2">
                   <CardTitle>{project.title}</CardTitle>
-                  <CardDescription>Потрібно: {project.needs}</CardDescription>
+                  <CardDescription>Needed: {project.needs}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
                     <div className="flex justify-between text-sm mb-1">
-                      <span>Прогрес збору</span>
+                      <span>Funding Progress</span>
                       <span className="font-medium">{project.progress}%</span>
                     </div>
                     <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
@@ -106,7 +106,7 @@ export function ProjectsSection() {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="text-sm">
-                      <span className="text-muted-foreground">Рентабельність:</span>
+                      <span className="text-muted-foreground">Profitability:</span>
                       <span className="ml-1 font-medium">{project.roi}</span>
                     </div>
                     <div className="flex -space-x-2">
@@ -126,7 +126,7 @@ export function ProjectsSection() {
                     variant="outline"
                     className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
                   >
-                    Детальніше
+                    More Details
                     <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </Button>
                 </CardFooter>
@@ -134,7 +134,7 @@ export function ProjectsSection() {
             </motion.div>
           ))}
         </div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -143,7 +143,7 @@ export function ProjectsSection() {
           className="mt-12 flex justify-center"
         >
           <Link href={ROUTES.PROJECTS} className={buttonVariants({ variant: "outline", size: "lg" })}>
-            Переглянути всі проєкти
+            View All Projects
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </motion.div>

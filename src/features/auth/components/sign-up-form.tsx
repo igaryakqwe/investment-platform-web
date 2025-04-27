@@ -41,9 +41,9 @@ const SignUpForm = ({ className }: SignUpFormProps) => {
         ...data,
         isLegal: data.isLegal,
       });
-      toast.success("Акаунт успішно створено", {
+      toast.success("Account successfully created", {
         description:
-          "Перевірте свою електронну пошту, щоб підтвердити реєстрацію.",
+          "Check your email to confirm your registration.",
       });
       replace(ROUTES.AUTH_SUCCESS);
     } catch (e) {
@@ -58,10 +58,9 @@ const SignUpForm = ({ className }: SignUpFormProps) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Створи новий аккаунт</h1>
+        <h1 className="text-2xl font-bold">Create a new account</h1>
         <p className="text-muted-foreground text-sm text-balance">
-          Введіть ім&#39;я, електронну пошту та пароль для створення нового
-          аккаунту
+          Enter your name, email, and password to create a new account.
         </p>
       </div>
       <div className="grid gap-4">
@@ -75,7 +74,7 @@ const SignUpForm = ({ className }: SignUpFormProps) => {
         />
         <Input
           id="password"
-          label="Пароль"
+          label="Password"
           error={errors.password?.message}
           type="password"
           {...register("password")}
@@ -94,11 +93,11 @@ const SignUpForm = ({ className }: SignUpFormProps) => {
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="true" id="isLegal" />
-              <Label htmlFor="isLegal">Фізична особа</Label>
+              <Label htmlFor="isLegal">Individual</Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="false" id="notIsLegal" />
-              <Label htmlFor="notIsLegal">Юридична особа</Label>
+              <Label htmlFor="notIsLegal">Legal entity</Label>
             </div>
           </RadioGroup>
           {errors.isLegal && (
@@ -109,13 +108,13 @@ const SignUpForm = ({ className }: SignUpFormProps) => {
         </div>
 
         <Button isLoading={isSubmitting} type="submit" className="w-full">
-          Зареєструватися
+          Sign up
         </Button>
       </div>
       <div className="text-center text-sm">
-        Вже маєш аккаунт?{" "}
+        Already have an account?{" "}
         <a href={ROUTES.SIGN_IN} className="underline underline-offset-4">
-          Увійти
+          Sign in
         </a>
       </div>
     </form>

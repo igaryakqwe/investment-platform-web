@@ -54,13 +54,13 @@ const AddContactModal = () => {
   const onSubmit = async (data: AddContactDto) => {
     try {
       await addContact({ ...data });
-      toast.success("Контакт додано");
+      toast.success("Contact added");
       reset();
       setOpen(false);
       await queryClient.invalidateQueries({ queryKey: ["contacts"] });
     } catch (e) {
       if (e instanceof Error) toast.error(e.message);
-      toast.error("Трапилась помилка");
+      toast.error("An error occurred");
     }
   };
 
@@ -86,32 +86,32 @@ const AddContactModal = () => {
           variant="outline"
           className="w-full"
         >
-          Додати контакт
+          Add Contact
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Додати новий контакт</DialogTitle>
+          <DialogTitle>Add New Contact</DialogTitle>
           <DialogDescription>
-            Додайте новий спосіб зв&#39;язку до вашого профілю.
+            Add a new contact method to your profile.
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="contactType">Тип контакту</Label>
+            <Label htmlFor="contactType">Contact Type</Label>
             <Select onValueChange={handleContactTypeChange}>
               <SelectTrigger id="contactType">
-                <SelectValue placeholder="Оберіть тип контакту" />
+                <SelectValue placeholder="Select contact type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="PHONE">Телефон</SelectItem>
+                <SelectItem value="PHONE">Phone</SelectItem>
                 <SelectItem value="EMAIL">Email</SelectItem>
                 <SelectItem value="VIBER">Viber</SelectItem>
                 <SelectItem value="TELEGRAM">Telegram</SelectItem>
                 <SelectItem value="WHATSAPP">WhatsApp</SelectItem>
                 <SelectItem value="FACEBOOK">Facebook</SelectItem>
-                <SelectItem value="OTHER">Інше</SelectItem>
+                <SelectItem value="OTHER">Other</SelectItem>
               </SelectContent>
             </Select>
             {errors.type && (
@@ -123,7 +123,7 @@ const AddContactModal = () => {
 
           <Input
             id="contactContent"
-            label="Контакт"
+            label="Contact"
             error={errors.content?.message}
             placeholder={getPlaceholder(currentContactType)}
             {...register("content")}
@@ -135,9 +135,9 @@ const AddContactModal = () => {
               type="button"
               onClick={() => setOpen(false)}
             >
-              Скасувати
+              Cancel
             </Button>
-            <Button type="submit">Зберегти</Button>
+            <Button type="submit">Save</Button>
           </DialogFooter>
         </form>
       </DialogContent>

@@ -17,7 +17,7 @@ const AuthLayoutContent = ({ children }: PropsWithChildren) => {
       <div className="relative hidden lg:block">
         <Image
           src={""}
-          alt="Щасливі врятовані тварини"
+          alt="Poh"
           fill
           className="object-cover md:object-contain"
           priority

@@ -8,24 +8,24 @@ export function HowItWorksSection() {
   const steps = [
     {
       icon: <Building2 className="h-6 w-6" />,
-      title: "Створення проєкту",
-      description: "Власники проєктів публікують свої потреби в обладнанні та техніці для відбудови.",
+      title: "Project Creation",
+      description: "Project owners publish their needs for equipment and machinery for reconstruction.",
       delay: 0,
     },
     {
       icon: <Factory className="h-6 w-6" />,
-      title: "Пропозиція обладнання",
-      description: "Виробники та постачальники обладнання знаходять проєкти та пропонують свою продукцію.",
+      title: "Equipment Offering",
+      description: "Manufacturers and suppliers find projects and offer their products.",
       delay: 0.2,
     },
     {
       icon: <Handshake className="h-6 w-6" />,
-      title: "Укладання договору",
-      description: "Сторони укладають договір про постачання обладнання та розподіл майбутніх прибутків.",
+      title: "Contract Signing",
+      description: "Parties sign an agreement for equipment supply and profit-sharing.",
       delay: 0.4,
     },
   ]
-  
+
   return (
     <section id="how-it-works" className="w-full py-20 md:pb-32 pt-0 relative">
       <div className="container px-4 md:px-6">
@@ -38,21 +38,20 @@ export function HowItWorksSection() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
             <Sparkles className="h-4 w-4" />
-            <span>Як це працює</span>
+            <span>How It Works</span>
           </div>
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight max-w-2xl">
-            Інвестиції в обладнання замість грошей — <span className="text-primary">новий підхід</span> до відбудови
+            Investing in equipment instead of money — <span className="text-primary">a new approach</span> to reconstruction
           </h2>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-            Наша платформа з&#39;єднує проєкти відбудови з бізнесами, які можуть надати необхідне обладнання та отримати
-            частку від майбутніх прибутків.
+            Our platform connects reconstruction projects with businesses that can provide the necessary equipment and receive a share of future profits.
           </p>
         </motion.div>
-        
+
         <div className="relative">
           {/* Connection line */}
           <div className="absolute left-1/2 top-8 bottom-8 w-0.5 bg-border hidden md:block"></div>
-          
+
           <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative z-10">
             {steps.map((step, index) => (
               <motion.div

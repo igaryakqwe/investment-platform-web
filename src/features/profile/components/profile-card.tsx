@@ -26,11 +26,11 @@ const ProfileCard = () => {
   const { user, isLoading } = useAuthStore();
 
   const { contacts, isLoading: isContactsLoading } = useContactsQuery(
-    user?.id as string,
+    user?.id!,
   );
 
-  const deleteContactMutation = useDeleteContact(user?.id as string);
-  const editContactMutation = useEditContact(user?.id as string);
+  const deleteContactMutation = useDeleteContact(user?.id!);
+  const editContactMutation = useEditContact(user?.id!);
 
   const [editingContact, setEditingContact] = useState<string | null>(null);
 
@@ -49,7 +49,7 @@ const ProfileCard = () => {
     try {
       await deleteContactMutation.mutateAsync(contactId);
     } catch (error) {
-      console.error("Помилка при видаленні контакту:", error);
+      console.error("Error deleting contact:", error);
     }
   };
 
@@ -61,7 +61,7 @@ const ProfileCard = () => {
       });
       setEditingContact(null);
     } catch (error) {
-      console.error("Помилка при оновленні контакту:", error);
+      console.error("Error updating contact:", error);
     }
   };
 
@@ -131,7 +131,7 @@ const ProfileCard = () => {
             })
           ) : (
             <span className="block flex-1 text-center text-gray-400">
-              Немає контактів
+              No contacts
             </span>
           )}
         </div>
@@ -144,7 +144,7 @@ const ProfileCard = () => {
             variant="destructive"
             onClick={handleSignOut}
           >
-            Вийти
+            Sign out
           </Button>
         </div>
       </CardContent>

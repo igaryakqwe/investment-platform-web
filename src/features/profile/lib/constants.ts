@@ -1,22 +1,18 @@
-import { BoxIcon, LandmarkIcon, BadgeCheckIcon } from "lucide-react";
+import { BoxIcon, BadgeCheckIcon } from "lucide-react";
+import ProjectsTab from "@/features/profile/components/projects-tab";
+import InvestmentsTab from "@/features/profile/components/investments-tab";
 
 export const TABS = [
   {
     label: "Projects",
     value: "tab-1",
     icon: BoxIcon,
-    content: "Content for Projects",
+    content: ProjectsTab,
   },
   {
     label: "Investments",
     value: "tab-2",
-    icon: LandmarkIcon,
-    content: "Content for Investments",
-  },
-  {
-    label: "Certificates",
-    value: "tab-3",
     icon: BadgeCheckIcon,
-    content: "Content for Certificates",
+    content: InvestmentsTab,
   },
 ];

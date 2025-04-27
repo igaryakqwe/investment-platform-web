@@ -65,11 +65,11 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
 
       await updateUser(data, user.id);
       await queryClient.invalidateQueries({ queryKey: ["user"] });
-      toast.success("Профіль успішно оновлено");
+      toast.success("Profile successfully updated");
       reset();
       closeModal();
     } catch (error) {
-      toast.error("Не вдалося оновити профіль. Спробуйте ще раз.");
+      toast.error("Failed to update profile. Please try again.");
     }
   };
 
@@ -78,12 +78,12 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      toast.error("Будь ласка, виберіть файл зображення");
+      toast.error("Please select an image file");
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      toast.error("Розмір зображення має бути менше 5МБ");
+      toast.error("Image size must be less than 5MB");
       return;
     }
 
@@ -115,7 +115,7 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
           htmlFor="profileImage"
           className="self-start text-sm font-medium"
         >
-          Фото профілю
+          Profile Photo
         </Label>
         <div className="flex flex-col items-center gap-4">
           <div
@@ -135,7 +135,7 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
               <div className="relative h-32 w-32 overflow-hidden rounded-full border">
                 <img
                   src={imagePreview || "/placeholder.svg"}
-                  alt="Перегляд профілю"
+                  alt="Profile Preview"
                   className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
@@ -161,7 +161,7 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
 
           <div className="flex flex-col items-center gap-2">
             <p className="text-muted-foreground text-xs">
-              Підтримувані формати: JPG, PNG, GIF. Макс. розмір: 5МБ
+              Supported formats: JPG, PNG, GIF. Max size: 5MB
             </p>
           </div>
         </div>
@@ -172,16 +172,16 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
           <>
             <Input
               id="name"
-              label="Назва"
+              label="Name"
               error={errors.name?.message}
-              placeholder="Назва організації або повне ім'я"
+              placeholder="Organization name or full name"
               {...register("name")}
             />
             <Textarea
               id="description"
-              label="Опис"
+              label="Description"
               error={errors.description?.message}
-              placeholder="Короткий опис"
+              placeholder="Short description"
               {...register("description")}
             />
           </>
@@ -191,25 +191,25 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
           <>
             <Input
               id="firstName"
-              label="Ім'я"
+              label="First Name"
               error={errors.firstName?.message}
-              placeholder="Іван"
+              placeholder="Ivan"
               {...register("firstName")}
             />
 
             <Input
               id="middleName"
-              label="По батькові"
+              label="Middle Name"
               error={errors.middleName?.message}
-              placeholder="Петрович"
+              placeholder="Petrovych"
               {...register("middleName")}
             />
 
             <Input
               id="lastName"
-              label="Прізвище"
+              label="Last Name"
               error={errors.lastName?.message}
-              placeholder="Коваленко"
+              placeholder="Kovalenko"
               {...register("lastName")}
             />
           </>
@@ -220,7 +220,7 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
         <Input
           id="currentPassword"
           type="password"
-          label="Поточний пароль"
+          label="Current Password"
           error={errors.currentPassword?.message}
           placeholder="••••••••"
           {...register("currentPassword")}
@@ -229,7 +229,7 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
         <Input
           id="newPassword"
           type="password"
-          label="Новий пароль"
+          label="New Password"
           error={errors.newPassword?.message}
           placeholder="••••••••"
           {...register("newPassword")}
@@ -240,11 +240,11 @@ const ProfileUpdateForm = ({ user, closeModal }: ProfileUpdateFormProps) => {
         <div className="flex justify-end gap-2 pt-2">
           {closeModal && (
             <Button type="button" variant="outline" onClick={closeModal}>
-              Скасувати
+              Cancel
             </Button>
           )}
           <Button isLoading={isSubmitting} type="submit">
-            Зберегти зміни
+            Save Changes
           </Button>
         </div>
       </div>
