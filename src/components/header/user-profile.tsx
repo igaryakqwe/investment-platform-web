@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -14,7 +13,12 @@ import { getFullName } from "@/utils/user.utils";
 const UserProfile = () => {
   const { user, isLoading } = useAuthStore();
 
-  const userName = getFullName(user?.firstName, user?.lastName, user?.middleName, user?.name);
+  const userName = getFullName(
+    user?.firstName,
+    user?.lastName,
+    user?.middleName,
+    user?.name,
+  );
 
   if (isLoading) {
     return (
@@ -38,14 +42,15 @@ const UserProfile = () => {
       )}
     >
       <div className="flex flex-col">
-        <span className="text-right text-sm font-medium">
-          {userName}
-        </span>
-        <span className="text-right text-xs text-muted-foreground">
+        <span className="text-sm font-medium md:text-right">{userName}</span>
+        <span className="text-muted-foreground text-right text-xs">
           {user?.email}
         </span>
       </div>
-      <UserAvatar image={user?.avatarLink}  />
+      <UserAvatar
+        className="order-first inline md:order-last md:block"
+        image={user?.avatarLink}
+      />
     </Link>
   );
 };

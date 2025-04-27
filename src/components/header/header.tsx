@@ -83,7 +83,7 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <div onClick={toggleMenu} className="hidden md:flex">
+            <div className="hidden md:flex">
               <UserProfile />
             </div>
 
