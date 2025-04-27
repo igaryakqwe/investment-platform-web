@@ -7,8 +7,8 @@ export interface Project {
   description: string;
   address: string;
   userId: string;
-  photos: Photos;
-  products: Products;
+  photos: Photos[];
+  products: Products[];
   createdAt: string;
 }
 
@@ -23,6 +23,7 @@ export interface Products {
   name: string;
   id: string;
   projectId: string;
+  description: string;
   amount: number;
   investments: Investment[];
 }
