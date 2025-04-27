@@ -3,6 +3,7 @@ import { HowItWorksSection } from "./components/how-it-works-section";
 import { ProjectsSection } from "./components/projects-section";
 import { BenefitsSection } from "./components/benefits-section";
 import { getProjects } from "@/api/projects/projects.api";
+import FeaturesSection from "@/features/home/components/features-section";
 
 const Home = async () => {
   const projects = await getProjects();
@@ -18,6 +19,7 @@ const Home = async () => {
       <main className="mx-auto w-full max-w-7xl flex-1">
         <HeroSection projects={projects} />
         <HowItWorksSection />
+        <FeaturesSection />
         <ProjectsSection projects={projects} />
         <BenefitsSection />
       </main>
