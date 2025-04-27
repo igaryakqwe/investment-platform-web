@@ -13,6 +13,7 @@ import {
   ChevronDown,
   ChevronUp,
   Send,
+  FileBoxIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -20,6 +21,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Avatar } from "@/components/ui/avatar";
 import useProjectQuery from "@/hooks/use-project-query";
 import type { Products } from "@/types/project";
+import CreateInvestmentModal from "@/features/project/components/create-investment-modal";
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -30,7 +32,6 @@ const formatDate = (dateString: string) => {
   });
 };
 
-// Helper function to calculate funding progress
 const calculateProgress = (products: Products[]) => {
   if (!Array.isArray(products)) return { percent: 0, raised: 0, remaining: 0 };
 
@@ -343,7 +344,7 @@ const ProjectPage = ({ id }: ProjectPageProps) => {
           {/* Right Column - Investment Box */}
           <div className="space-y-6">
             {/* Funding Progress Card */}
-            <div className="bg-card sticky top-6 rounded-lg border p-5 shadow-sm">
+            <div className="bg-card sticky top-20 rounded-lg border p-5 shadow-sm">
               <h2 className="mb-4 text-xl font-semibold">Project Funding</h2>
 
               <div className="mb-6 space-y-4">
@@ -372,6 +373,7 @@ const ProjectPage = ({ id }: ProjectPageProps) => {
                   </div>
                 </div>
               </div>
+              <CreateInvestmentModal products={project.products ?? []} />
             </div>
           </div>
         </div>

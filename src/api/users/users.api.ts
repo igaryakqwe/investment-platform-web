@@ -115,3 +115,24 @@ export const getUserById = async (userId: string) => {
     throw e;
   }
 };
+
+export const getUserByEmail = async (email: string) => {
+  try {
+    const response = await fetch(`${API_URL}/users?email=${email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...generateAuthHeaders(),
+      },
+    });
+
+    if (!response.ok) {
+      const error = (await response.json()) as ErrorResponse;
+      throw new Error(error.message);
+    }
+
+    return (await response.json()) as User[];
+  } catch (e) {
+    throw e;
+  }
+};
