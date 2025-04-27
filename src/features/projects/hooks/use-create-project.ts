@@ -2,97 +2,138 @@
 
 import { useState, useCallback, useEffect } from "react"
 import type { ProjectInfoValues } from "../components/stepper/steps/project-info-step"
-import type { ProductInfoValues } from "../components/stepper/steps/product-info-step"
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {toast} from "sonner";
+import type {CreateProjectDto} from "@/api/projects/projects.dto";
+import {createProject} from "@/api/projects/projects.api";
 
 const LOCAL_STORAGE_KEY = "create-project-form"
 
+export interface Product {
+  id: string // Унікальний ідентифікатор для керування списком
+  name: string
+  amount: number
+}
+
 interface CreateProjectState {
   projectInfo: ProjectInfoValues | null
-  projectImages: string[]
-  productInfo: ProductInfoValues | null
+  projectImages: {
+    link: string,
+    isMain: boolean
+  }[]
+  products: Product[]
 }
 
 export function useCreateProject() {
+  const queryClient = useQueryClient()
+  
   const [state, setState] = useState<CreateProjectState>(() => {
-    // Спроба отримати збережений стан з localStorage
     if (typeof window !== "undefined") {
       const savedState = localStorage.getItem(LOCAL_STORAGE_KEY)
       if (savedState) {
         try {
-          return JSON.parse(savedState)
+          return JSON.parse(savedState) as CreateProjectState
         } catch (e) {
           console.error("Failed to parse saved form state:", e)
         }
       }
     }
     
-    // Початковий стан, якщо немає збереженого
     return {
       projectInfo: null,
       projectImages: [],
-      productInfo: null,
+      products: [],
     }
   })
   
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  
-  // Зберігаємо стан в localStorage при кожній зміні
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
   }, [state])
+  
+  const createProjectMutation = useMutation({
+    mutationFn: createProject,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
+      
+      toast("Проєкт створено");
+      
+      resetForm();
+    },
+    onError: (error) => {
+      console.error("Error creating project:", error);
+      
+      toast("Не вдалося створити проєкт. Спробуйте ще раз.");
+    },
+  });
   
   const updateProjectInfo = useCallback((info: ProjectInfoValues) => {
     setState((prev) => ({ ...prev, projectInfo: info }))
   }, [])
   
-  const updateProjectImages = useCallback((images: string[]) => {
+  const updateProjectImages = useCallback((images: { link: string, isMain: boolean }[]) => {
     setState((prev) => ({ ...prev, projectImages: images }))
   }, [])
   
-  const updateProductInfo = useCallback((info: ProductInfoValues) => {
-    setState((prev) => ({ ...prev, productInfo: info }))
+  const addProduct = useCallback((product: Product) => {
+    setState((prev) => ({
+      ...prev,
+      products: [...prev.products, product],
+    }))
+  }, [])
+  
+  const updateProduct = useCallback((updatedProduct: Product) => {
+    setState((prev) => ({
+      ...prev,
+      products: prev.products.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)),
+    }))
+  }, [])
+  
+  const removeProduct = useCallback((productId: string) => {
+    setState((prev) => ({
+      ...prev,
+      products: prev.products.filter((product) => product.id !== productId),
+    }))
   }, [])
   
   const resetForm = useCallback(() => {
     setState({
       projectInfo: null,
       projectImages: [],
-      productInfo: null,
+      products: [],
     })
     localStorage.removeItem(LOCAL_STORAGE_KEY)
   }, [])
   
   const submitForm = useCallback(async () => {
-    setIsSubmitting(true)
-    
-    try {
-      // Тут буде логіка відправки даних на сервер
-      console.log("Submitting project:", state)
-      
-      // Імітація затримки запиту
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      
-      // Очищення форми після успішного створення
-      resetForm()
-      
-      return true
-    } catch (error) {
-      console.error("Error submitting project:", error)
+    if (!state.projectInfo || state.products.length === 0 || state.projectImages.length === 0) {
+      toast("Будь ласка, заповніть всі обов'язкові поля.")
       return false
-    } finally {
-      setIsSubmitting(false)
     }
-  }, [state, resetForm])
+    
+    const payload: CreateProjectDto = {
+      name: state.projectInfo.name,
+      description: state.projectInfo.description,
+      address: state.projectInfo.address,
+      images: state.projectImages,
+      product: state.products.map(({ name, amount }) => ({ name, amount })), // Видаляємо id
+    }
+    
+    createProjectMutation.mutate(payload)
+    
+    return true
+  }, [state, createProjectMutation])
   
   return {
     projectInfo: state.projectInfo,
     projectImages: state.projectImages,
-    productInfo: state.productInfo,
+    products: state.products,
     updateProjectInfo,
     updateProjectImages,
-    updateProductInfo,
+    addProduct,
+    updateProduct,
+    removeProduct,
     resetForm,
     submitForm,
-    isSubmitting,
+    isSubmitting: createProjectMutation.isPending,
   }
 }

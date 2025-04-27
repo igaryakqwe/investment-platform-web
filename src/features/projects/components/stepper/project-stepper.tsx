@@ -40,7 +40,7 @@ export function ProjectStepper({ onClose }: ProjectStepperProps) {
   }
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-2">
       <Stepper steps={steps} activeStep={currentStep} className="px-2 py-4" />
       
       {/* Step content */}

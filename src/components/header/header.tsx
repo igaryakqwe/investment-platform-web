@@ -31,14 +31,12 @@ const Header = () => {
       { name: "Як це працює", id: "how-it-works", href: "/#how-it-works" },
       { name: "Проєкти", id: "projects", href: "/#projects" },
       { name: "Переваги", id: "benefits", href: "/#benefits" },
-      { name: "Контакти", id: "contact", href: "/#contact" },
     ]
     : [
       { name: "Головна", id: "", href: "/" },
       { name: "Проєкти", id: "", href: "/projects" },
       { name: "Про нас", id: "", href: "/about" },
       { name: "Блог", id: "", href: "/blog" },
-      { name: "Контакти", id: "", href: "/contact" },
     ]
   
   return (

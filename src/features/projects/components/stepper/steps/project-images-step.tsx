@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label"
 // import { uploadImage } from "@/lib/upload-image"
 import { ImagePlus, Loader2, Star, X } from "lucide-react"
 import Image from "next/image"
+import { uploadImage } from "@/api/projects/projects.api";
+import { toast } from "sonner";
 
 const ProjectImagesStep = () => {
   const { projectImages, updateProjectImages } = useCreateProject()
@@ -24,29 +26,39 @@ const ProjectImagesStep = () => {
     setUploadProgress(0)
     
     try {
-      const uploadedImages = [...projectImages]
-      
+      const formData = new FormData()
       for (const file of files) {
-        const interval = setInterval(() => {
-          setUploadProgress((prev) => {
-            const newProgress = prev + Math.random() * 10
-            return newProgress > 100 ? 100 : newProgress
-          })
-        }, 200)
-        
-        // Імітація завантаження на CDN
-        // const imageUrl = await uploadImage(file)
-        
-        clearInterval(interval)
-        setUploadProgress(100)
-        
-        // uploadedImages.push(imageUrl)
+        formData.append("files", file)
       }
       
+      const interval = setInterval(() => {
+        setUploadProgress((prev) => {
+          const newProgress = prev + Math.random() * 5
+          return newProgress > 95 ? 95 : newProgress
+        })
+      }, 200)
+      
+      const imageUrls = await uploadImage(formData)
+      
+      clearInterval(interval)
+      setUploadProgress(100)
+      
+      const formattedImages = imageUrls.map(url => {
+        return {
+          link: url,
+          isMain: false
+        }
+      })
+      
+      const uploadedImages = [...projectImages, ...formattedImages]
       updateProjectImages(uploadedImages)
-      setUploadProgress(0)
+      
+      setTimeout(() => {
+        setUploadProgress(0)
+      }, 500)
     } catch (error) {
-      console.error("Error uploading image:", error)
+      console.error("Error uploading images:", error)
+      toast("Не вдалося завантажити зображення. Спробуйте ще раз.")
     } finally {
       setIsUploading(false)
     }
@@ -59,7 +71,7 @@ const ProjectImagesStep = () => {
   }
   
   const setMainImage = (index: number) => {
-    if (index === 0) return // Вже головне зображення
+    if (index === 0) return
     
     const updatedImages = [...projectImages]
     const mainImage = updatedImages.splice(index, 1)[0]
@@ -71,7 +83,7 @@ const ProjectImagesStep = () => {
   }
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-1">
       <div className="space-y-2">
         <Label htmlFor="images">Фотографії проєкту</Label>
         <div className="border-2 border-dashed rounded-lg p-6 text-center">
@@ -119,7 +131,7 @@ const ProjectImagesStep = () => {
               <div key={index} className="relative group">
                 <div className="aspect-[4/3] rounded-md overflow-hidden border">
                   <Image
-                    src={image ?? "/placeholder.svg"}
+                    src={image.link ?? "/placeholder.svg"}
                     alt={`Project image ${index + 1}`}
                     width={300}
                     height={225}

@@ -2,10 +2,15 @@
 
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowRight, Zap, Sparkles, ArrowUpRight } from "lucide-react"
+import useAuthStore from "@/store/use-auth-store";
+import { ROUTES } from "@/constants/navigation";
+import Link from "next/link";
+import { cn } from "@/utils/styles.utils"
 
 export function HeroSection() {
+  const { user } = useAuthStore();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,7 +42,6 @@ export function HeroSection() {
   
   return (
     <section id="hero" className="relative w-full min-h-[90vh] flex items-center">
-      {/* Background elements */}
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background"
@@ -75,13 +79,19 @@ export function HeroSection() {
               </p>
             </motion.div>
             <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row">
-              <Button size="lg" className="gap-1 rounded-full group">
+              <Link
+                href={user ? ROUTES.PROJECTS : ROUTES.SIGN_IN}
+                className={cn(buttonVariants({ size: "lg" }), "gap-1 group")}
+              >
                 Розпочати проєкт
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button variant="outline" size="lg" className="rounded-full">
+              </Link>
+              <Link
+                href={user ? ROUTES.PROJECTS : ROUTES.SIGN_IN}
+                className={buttonVariants({ variant: "outline", size: "lg" })}
+              >
                 Стати інвестором
-              </Button>
+              </Link>
             </motion.div>
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
               <div className="flex items-center gap-2">

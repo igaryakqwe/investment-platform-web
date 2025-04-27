@@ -1,9 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Building2, Factory, Handshake, ArrowRight, Sparkles } from "lucide-react"
+import { Building2, Factory, Handshake, Sparkles } from "lucide-react"
 
 export function HowItWorksSection() {
   const steps = [
@@ -84,19 +83,6 @@ export function HowItWorksSection() {
             ))}
           </div>
         </div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="mt-16 flex justify-center"
-        >
-          <Button size="lg" className="rounded-full">
-            Дізнатися більше
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </motion.div>
       </div>
     </section>
   )
