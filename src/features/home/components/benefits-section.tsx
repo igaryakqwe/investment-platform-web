@@ -1,10 +1,14 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button";
 import { Sparkles } from "lucide-react"
+import Link from "next/link";
+import useAuthStore from "@/store/use-auth-store";
+import { ROUTES } from "@/constants/navigation";
 
 export function BenefitsSection() {
+  const { user } = useAuthStore();
   const benefitsForProjects = [
     {
       title: "Quick access to equipment",
@@ -179,12 +183,18 @@ export function BenefitsSection() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button size="lg">
+              <Link
+                href={user ? ROUTES.PROJECTS : ROUTES.SIGN_IN}
+                className={buttonVariants({ size: "lg" })}
+              >
                 Create a project
-              </Button>
-              <Button variant="outline" size="lg">
+              </Link>
+              <Link
+                href={user ? ROUTES.PROJECTS : ROUTES.SIGN_IN}
+                className={buttonVariants({ variant: "outline", size: "lg" })}
+              >
                 Become an investor
-              </Button>
+              </Link>
             </div>
           </div>
         </motion.div>

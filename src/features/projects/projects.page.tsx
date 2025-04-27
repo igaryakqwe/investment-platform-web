@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "./components/project-card";
-// import { CreateProjectModal } from "@/components/projects/create-project-modal"
+import { CreateProjectModal } from "./components/create-project-modal"
 import { Plus, Sparkles } from "lucide-react";
 import useProjectsQuery from "@/hooks/use-projects-query";
 import { parseAsString, useQueryState } from "nuqs";
@@ -80,11 +80,11 @@ const ProjectsPage = () => {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
-
-      {/*<CreateProjectModal*/}
-      {/*  isOpen={isModalOpen}*/}
-      {/*  onClose={() => setIsModalOpen(false)}*/}
-      {/*/>*/}
+      
+      <CreateProjectModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };
