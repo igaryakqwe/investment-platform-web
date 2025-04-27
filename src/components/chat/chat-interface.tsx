@@ -12,7 +12,7 @@ import useAuthStore from "@/store/use-auth-store";
 import useChatStore from "@/store/use-chat-store";
 import { type User } from "@/types/user";
 import { cn } from "@/utils/styles.utils";
-import { getUserName } from "@/utils/user.utils";
+import { getFullName, getUserName } from "@/utils/user.utils";
 
 interface Message {
   id: string;
@@ -133,7 +133,12 @@ const ChatInterface = () => {
                   />
                   <div className="text-left">
                     <div className="max-w-[100px] truncate text-xs font-medium">
-                      {getUserName(chat?.name, chat?.firstName, chat?.lastName)}
+                      {getFullName(
+                        chat?.firstName,
+                        chat?.lastName,
+                        chat?.middleName,
+                        chat?.name,
+                      )}
                     </div>
                   </div>
                 </Button>
@@ -186,7 +191,7 @@ const ChatInterface = () => {
                     className={cn(
                       "w-fit rounded-2xl px-3 py-2 text-sm break-words",
                       isOwn
-                        ? "bg-primary text-primary-foreground rounded-tr-none"
+                        ? "bg-primary rounded-tr-none text-white"
                         : "bg-muted rounded-tl-none",
                     )}
                   >

@@ -11,7 +11,7 @@ import {
   Bookmark,
   ChevronDown,
   ChevronUp,
-
+  MessageCircleIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -23,6 +23,8 @@ import CreateInvestmentModal from "@/features/project/components/create-investme
 import useAuthStore from "@/store/use-auth-store";
 import UserAvatar from "@/components/user-avatar";
 import { getUserName } from "@/utils/user.utils";
+import { getUserById } from "@/api/users/users.api";
+import useChatStore from "@/store/use-chat-store";
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -138,8 +140,17 @@ interface ProjectPageProps {
 const ProjectPage = ({ id }: ProjectPageProps) => {
   const { project, isLoading } = useProjectQuery(id);
   const { user } = useAuthStore();
+  const { addChat, setReceiverId, setIsChatOpen } = useChatStore();
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const handleOpenChat = async () => {
+    const user = await getUserById(project?.userId ?? "");
+    console.log(user);
+    addChat(user);
+    setReceiverId(user.id);
+    setIsChatOpen(true);
+  };
 
   if (!project.products) return null;
 
@@ -354,9 +365,21 @@ const ProjectPage = ({ id }: ProjectPageProps) => {
                   </div>
                 </div>
               </div>
-              {user?.id === project.userId && (
-                <CreateInvestmentModal products={project.products ?? []} />
-              )}
+              <div className="flex gap-2">
+                {user?.id === project.userId && (
+                  <CreateInvestmentModal products={project.products ?? []} />
+                )}
+                {user && (
+                  <Button
+                    onClick={handleOpenChat}
+                    icon={<MessageCircleIcon />}
+                    className="w-full"
+                    size="lg"
+                  >
+                    Chat
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>
