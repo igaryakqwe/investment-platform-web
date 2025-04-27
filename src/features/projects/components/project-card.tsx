@@ -96,13 +96,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="gap-2">
         <Button onClick={handleOpenChat}>Chat</Button>
         <Link
           href={`/projects/${project.id}`}
           className={cn(
-            buttonVariants(),
-            "group-hover:bg-primary group-hover:text-primary-foreground w-full rounded-full transition-colors",
+            buttonVariants({ variant: "outline" }),
+            "w-full",
           )}
         >
           View Details

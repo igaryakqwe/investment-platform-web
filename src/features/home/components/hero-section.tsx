@@ -88,7 +88,10 @@ export function HeroSection() {
               className="flex flex-col gap-3 sm:flex-row"
             >
               <Link
-                href={user ? ROUTES.PROJECTS : ROUTES.SIGN_IN}
+                href={{
+                  pathname: user ? ROUTES.PROJECTS : ROUTES.SIGN_IN,
+                  query: { showModal: true }
+                }}
                 className={cn(buttonVariants({ size: "lg" }), "group gap-1")}
               >
                 Start a project

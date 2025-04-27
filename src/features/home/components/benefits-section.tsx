@@ -184,7 +184,10 @@ export function BenefitsSection() {
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
-                href={user ? ROUTES.PROJECTS : ROUTES.SIGN_IN}
+                href={{
+                  pathname: user ? ROUTES.PROJECTS : ROUTES.SIGN_IN,
+                  query: { showModal: true }
+                }}
                 className={buttonVariants({ size: "lg" })}
               >
                 Create a project

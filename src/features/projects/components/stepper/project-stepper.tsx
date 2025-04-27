@@ -18,9 +18,9 @@ export function ProjectStepper({ onClose }: ProjectStepperProps) {
   const { isSubmitting, submitForm } = useCreateProjectContext()
   
   const steps = [
-    { id: "info", label: "Інформація про проєкт", component: <ProjectInfoStep /> },
-    { id: "images", label: "Фотографії проєкту", component: <ProjectImagesStep /> },
-    { id: "product", label: "Інформація про продукт", component: <ProductInfoStep /> },
+    { id: "info", label: "Project info", component: <ProjectInfoStep /> },
+    { id: "images", label: "Project photos", component: <ProjectImagesStep /> },
+    { id: "product", label: "Products info", component: <ProductInfoStep /> },
   ]
   
   const handleNext = async () => {
@@ -44,14 +44,13 @@ export function ProjectStepper({ onClose }: ProjectStepperProps) {
       <div className="min-h-[300px] py-4">{steps[currentStep]?.component}</div>
       <div className="flex justify-between pt-4 border-t">
         <Button variant="outline" onClick={currentStep === 0 ? onClose : handleBack} disabled={isSubmitting}>
-          {currentStep === 0 ? "Скасувати" : "Назад"}
+          {currentStep === 0 ? "Cancel" : "Back"}
         </Button>
         <Button onClick={handleNext} disabled={isSubmitting}>
           {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          {currentStep === steps.length - 1 ? "Створити проєкт" : "Далі"}
+          {currentStep === steps.length - 1 ? "Create project" : "Next"}
         </Button>
       </div>
     </div>
   )
 }
-

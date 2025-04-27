@@ -34,7 +34,7 @@ const ProjectImagesStep = () => {
       ])
       setTimeout(() => setUploadProgress(0), 500)
     } catch {
-      toast.error("Не вдалося завантажити зображення.")
+      toast.error("Failed to upload images.")
     } finally {
       setIsUploading(false)
     }
@@ -59,7 +59,7 @@ const ProjectImagesStep = () => {
   return (
     <div className="space-y-6 p-1">
       <div className="space-y-2">
-        <Label htmlFor="images">Фотографії проєкту</Label>
+        <Label htmlFor="images">Project photos</Label>
         <div className="border-2 border-dashed rounded-lg p-6 text-center">
           <input
             id="images"
@@ -72,15 +72,15 @@ const ProjectImagesStep = () => {
           />
           <Label htmlFor="images" className="flex flex-col items-center justify-center cursor-pointer">
             <ImagePlus className="h-10 w-10 text-muted-foreground mb-2" />
-            <span className="text-sm font-medium mb-1">Перетягніть файли сюди або клацніть для вибору</span>
-            <span className="text-xs text-muted-foreground">Підтримуються формати JPG, PNG, GIF (макс. 5 МБ)</span>
+            <span className="text-sm font-medium mb-1">Drag and drop files here or click to select</span>
+            <span className="text-xs text-muted-foreground">Supported formats: JPG, PNG, GIF (max 5MB)</span>
           </Label>
         </div>
         {isUploading && (
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Loader2 className="h-4 w-4 animate-spin" />
-              <span className="text-sm">Завантаження...</span>
+              <span className="text-sm">Uploading...</span>
             </div>
             <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
               <div
@@ -94,8 +94,8 @@ const ProjectImagesStep = () => {
       {projectImages.length > 0 && (
         <div className="space-y-4">
           <div className="text-sm font-medium">
-            Завантажені зображення ({projectImages.length})
-            <span className="text-muted-foreground ml-2 text-xs">Перше зображення буде головним</span>
+            Uploaded images ({projectImages.length})
+            <span className="text-muted-foreground ml-2 text-xs">The first image will be the main one</span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {projectImages.map((image, index) => (
@@ -116,7 +116,7 @@ const ProjectImagesStep = () => {
                       size="icon"
                       className="h-7 w-7 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={() => setMain(index)}
-                      title="Зробити головним"
+                      title="Set as main"
                     >
                       <Star className="h-4 w-4" />
                     </Button>
@@ -132,7 +132,7 @@ const ProjectImagesStep = () => {
                 </div>
                 {index === 0 && (
                   <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded-md">
-                    Головне
+                    Main
                   </div>
                 )}
               </div>
@@ -144,4 +144,4 @@ const ProjectImagesStep = () => {
   )
 }
 
-export default ProjectImagesStep;
+export default ProjectImagesStep

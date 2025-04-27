@@ -23,7 +23,7 @@ function InnerCreateProjectModal({ isOpen, onClose }: CreateProjectModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-hidden">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">Створення нового проєкту</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">Create a new project</DialogTitle>
         </DialogHeader>
         <ProjectStepper onClose={onClose} />
       </DialogContent>
