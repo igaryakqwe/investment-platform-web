@@ -15,10 +15,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   });
 
   useEffect(() => {
-    if (!token || user) return;
-
     hydrateAuthStore(user ?? null);
-  }, [token, user]);
+  }, [user]);
 
   return <>{children}</>;
 };

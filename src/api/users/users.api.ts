@@ -1,7 +1,7 @@
 import { type UserUpdateDto } from "@/api/users/users.dto";
 import { API_URL } from "@/lib/constants";
 import type { ErrorResponse } from "@/types/api";
-import { type User } from "@/types/user";
+import { type ChatUser, type User } from "@/types/user";
 import { generateAuthHeaders } from "@/utils/auth.utils";
 import type { Investment } from "@/types/investment";
 
@@ -44,9 +44,9 @@ export const updateUserAvatar = async (formData: FormData) => {
   }
 };
 
-export const getUserChats = async () => {
+export const getUserChats = async (userId: string) => {
   try {
-    const response = await fetch(`${API_URL}/users/chats`, {
+    const response = await fetch(`${API_URL}/users/${userId}/chats`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -81,6 +81,32 @@ export const getUserInvestments = async (userId: string) => {
     }
 
     return (await response.json()) as Investment[];
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const getUserById = async (userId: string) => {
+  try {
+    const response = await fetch(`${API_URL}/users/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...generateAuthHeaders(),
+      },
+    });
+
+    if (!response.ok) {
+      const error = (await response.json()) as ErrorResponse;
+      throw new Error(error.message);
+    }
+
+    const user = (await response.json()) as ChatUser;
+
+    return {
+      ...user,
+      id: user.userId || "/placeholder.svg",
+    } as User;
   } catch (e) {
     throw e;
   }

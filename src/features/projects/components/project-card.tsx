@@ -11,12 +11,16 @@ import {
 import { ArrowUpRight, MapPin, Users, Calendar } from "lucide-react";
 import type { Project } from "@/types/project";
 import { formatDistanceToNow } from "date-fns";
+import useChatStore from "@/store/use-chat-store";
+import { getUserById } from "@/api/users/users.api";
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const { addChat, setIsChatOpen, setReceiverId } = useChatStore();
+
   const mainPhoto = project.photos?.link || "/placeholder.svg";
   const totalInvested =
     project.products?.investments?.reduce(
@@ -30,6 +34,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const investorCount = project.products?.investments?.length || 0;
   const createdDate = new Date(project.createdAt);
   const timeAgo = formatDistanceToNow(createdDate, { addSuffix: true });
+
+  const handleOpenChat = async () => {
+    const user = await getUserById(project.userId);
+    addChat(user);
+    setReceiverId(user.id);
+    setIsChatOpen(true);
+  };
 
   return (
     <Card className="border-border/50 bg-card/50 hover:shadow-primary/5 hover:border-primary/20 group h-full w-full overflow-hidden backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
@@ -81,6 +92,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </CardContent>
       <CardFooter>
+        <Button onClick={handleOpenChat}>Chat</Button>
         <Button
           variant="outline"
           className="group-hover:bg-primary group-hover:text-primary-foreground w-full rounded-full transition-colors"
