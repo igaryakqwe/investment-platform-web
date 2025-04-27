@@ -1,22 +1,21 @@
 "use client"
 
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback } from "react"
 import type { ProjectInfoValues } from "../components/stepper/steps/project-info-step"
-import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {toast} from "sonner";
-import type {CreateProjectDto} from "@/api/projects/projects.dto";
-import {createProject} from "@/api/projects/projects.api";
-
-const LOCAL_STORAGE_KEY = "create-project-form"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import type { CreateProjectDto } from "@/api/projects/projects.dto"
+import { createProject } from "@/api/projects/projects.api"
+import useAuthStore from "@/store/use-auth-store";
 
 export interface Product {
-  id: string // Унікальний ідентифікатор для керування списком
+  id: string
   name: string
   amount: number
 }
 
 interface CreateProjectState {
-  projectInfo: ProjectInfoValues | null
+  projectInfo: ProjectInfoValues
+  // userId: string
   projectImages: {
     link: string,
     isMain: boolean
@@ -24,109 +23,100 @@ interface CreateProjectState {
   products: Product[]
 }
 
+const INITIAL_INFO: ProjectInfoValues = {
+  name: "",
+  description: "",
+  address: "",
+}
+
+const INITIAL_STATE: CreateProjectState = {
+  projectInfo: INITIAL_INFO,
+  // userId: "",
+  projectImages: [],
+  products: [],
+}
+
+const toast = {
+  success: (message: string) => console.log(`Success: ${message}`),
+  error: (message: string) => console.error(`Error: ${message}`),
+  warn: (message: string) => console.warn(`Warning: ${message}`),
+}
+
 export function useCreateProject() {
   const queryClient = useQueryClient()
+  const { user } = useAuthStore();
   
-  const [state, setState] = useState<CreateProjectState>(() => {
-    if (typeof window !== "undefined") {
-      const savedState = localStorage.getItem(LOCAL_STORAGE_KEY)
-      if (savedState) {
-        try {
-          return JSON.parse(savedState) as CreateProjectState
-        } catch (e) {
-          console.error("Failed to parse saved form state:", e)
-        }
-      }
-    }
-    
-    return {
-      projectInfo: null,
-      projectImages: [],
-      products: [],
-    }
-  })
+  const [formState, setFormState] = useState<CreateProjectState>(INITIAL_STATE)
   
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
-  }, [state])
-  
-  const createProjectMutation = useMutation({
+  const { mutateAsync: createAsync, isPending: isSubmitting } = useMutation({
     mutationFn: createProject,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["projects"] });
-      
-      toast("Проєкт створено");
-      
-      resetForm();
+      await queryClient.invalidateQueries({ queryKey: ["projects"] })
+      toast.success("Проєкт створено")
+      resetForm()
     },
-    onError: (error) => {
-      console.error("Error creating project:", error);
-      
-      toast("Не вдалося створити проєкт. Спробуйте ще раз.");
+    onError: () => {
+      toast.error("Не вдалося створити проєкт. Спробуйте ще раз.")
     },
-  });
+  })
   
-  const updateProjectInfo = useCallback((info: ProjectInfoValues) => {
-    setState((prev) => ({ ...prev, projectInfo: info }))
+  const updateProjectInfo = useCallback((info: CreateProjectState["projectInfo"]) => {
+    setFormState((s) => ({ ...s, projectInfo: info }))
   }, [])
   
-  const updateProjectImages = useCallback((images: { link: string, isMain: boolean }[]) => {
-    setState((prev) => ({ ...prev, projectImages: images }))
+  const updateProjectImages = useCallback((images: CreateProjectState["projectImages"]) => {
+    setFormState((s) => ({ ...s, projectImages: images }))
   }, [])
   
-  const addProduct = useCallback((product: Product) => {
-    setState((prev) => ({
-      ...prev,
-      products: [...prev.products, product],
+  const addProduct = useCallback((product: { id: string; name: string; amount: number }) => {
+    setFormState((s) => ({ ...s, products: [...s.products, product] }))
+  }, [])
+  
+  const updateProduct = useCallback((prod: { id: string; name: string; amount: number }) => {
+    setFormState((s) => ({
+      ...s,
+      products: s.products.map((p) => (p.id === prod.id ? prod : p)),
     }))
   }, [])
   
-  const updateProduct = useCallback((updatedProduct: Product) => {
-    setState((prev) => ({
-      ...prev,
-      products: prev.products.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)),
-    }))
-  }, [])
-  
-  const removeProduct = useCallback((productId: string) => {
-    setState((prev) => ({
-      ...prev,
-      products: prev.products.filter((product) => product.id !== productId),
+  const removeProduct = useCallback((id: string) => {
+    setFormState((s) => ({
+      ...s,
+      products: s.products.filter((p) => p.id !== id),
     }))
   }, [])
   
   const resetForm = useCallback(() => {
-    setState({
-      projectInfo: null,
-      projectImages: [],
-      products: [],
-    })
-    localStorage.removeItem(LOCAL_STORAGE_KEY)
+    setFormState(INITIAL_STATE)
   }, [])
   
   const submitForm = useCallback(async () => {
-    if (!state.projectInfo || state.products.length === 0 || state.projectImages.length === 0) {
-      toast("Будь ласка, заповніть всі обов'язкові поля.")
+    const { projectInfo, projectImages, products } = formState
+
+    if (!projectInfo || products.length === 0 || projectImages.length === 0) {
+      toast.warn("Будь ласка, заповніть всі обов'язкові поля.")
       return false
     }
-    
-    const payload: CreateProjectDto = {
-      name: state.projectInfo.name,
-      description: state.projectInfo.description,
-      address: state.projectInfo.address,
-      images: state.projectImages,
-      product: state.products.map(({ name, amount }) => ({ name, amount })), // Видаляємо id
+    const userId = user?.id ?? ""
+    const dto: CreateProjectDto = {
+      userId: userId,
+      name: projectInfo.name,
+      description: projectInfo.description,
+      address: projectInfo.address,
+      photos: projectImages,
+      product: products.map(({ name, amount }) => ({ name, amount })),
     }
     
-    createProjectMutation.mutate(payload)
-    
-    return true
-  }, [state, createProjectMutation])
+    try {
+      await createAsync(dto)
+      return true
+    } catch {
+      return false
+    }
+  }, [formState, user?.id, createAsync])
   
   return {
-    projectInfo: state.projectInfo,
-    projectImages: state.projectImages,
-    products: state.products,
+    ...formState,
     updateProjectInfo,
     updateProjectImages,
     addProduct,
@@ -134,6 +124,6 @@ export function useCreateProject() {
     removeProduct,
     resetForm,
     submitForm,
-    isSubmitting: createProjectMutation.isPending,
+    isSubmitting,
   }
 }

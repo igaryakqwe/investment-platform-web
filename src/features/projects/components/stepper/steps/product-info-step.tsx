@@ -1,15 +1,15 @@
 "use client"
 
-import { type Product, useCreateProject } from "../../../hooks/use-create-project";
-import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "@/components/ui/input"
-import { useState } from "react";
 import { Button } from "@/components/ui/button"
-import { Edit2, Plus, Save, Trash2, X } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/utils/styles.utils";
+import { Badge } from "@/components/ui/badge"
+import { Edit2, Plus, Save, Trash2, X } from "lucide-react"
+import { cn } from "@/utils/styles.utils"
+import { useCreateProjectContext } from "@/context/create-project-context"
 
 const productSchema = z.object({
   name: z.string().min(3, "Назва продукту має містити щонайменше 3 символи"),
@@ -19,54 +19,30 @@ const productSchema = z.object({
 type ProductFormValues = z.infer<typeof productSchema>
 
 const ProductInfoStep = () => {
-  const { products, addProduct, updateProduct, removeProduct } = useCreateProject()
+  const { products, addProduct, updateProduct, removeProduct } = useCreateProjectContext()
   const [editingProductId, setEditingProductId] = useState<string | null>(null)
   
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isValid },
-  } = useForm<ProductFormValues>({
+  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
-    defaultValues: {
-      name: "",
-      amount: 1,
-    },
+    defaultValues: { name: "", amount: 1 },
     mode: "onChange",
   })
   
-  // Функція для додавання нового продукту
   const onSubmit = (data: ProductFormValues) => {
     if (editingProductId) {
-      // Оновлюємо існуючий продукт
-      updateProduct({
-        id: editingProductId,
-        name: data.name,
-        amount: data.amount,
-      })
+      updateProduct({ id: editingProductId, ...data })
       setEditingProductId(null)
     } else {
-      // Додаємо новий продукт
-      addProduct({
-        id: `product-${Date.now()}`,
-        name: data.name,
-        amount: data.amount,
-      })
+      addProduct({ id: `product-${Date.now()}`, ...data })
     }
     reset({ name: "", amount: 1 })
   }
   
-  // Функція для початку редагування продукту
-  const startEditing = (product: Product) => {
+  const startEditing = (product: { id: string; name: string; amount: number }) => {
     setEditingProductId(product.id)
-    reset({
-      name: product.name,
-      amount: product.amount,
-    })
+    reset({ name: product.name, amount: product.amount })
   }
   
-  // Функція для скасування редагування
   const cancelEditing = () => {
     setEditingProductId(null)
     reset({ name: "", amount: 1 })
@@ -80,8 +56,6 @@ const ProductInfoStep = () => {
           Вкажіть назву обладнання або продукту та необхідну кількість. Ви можете додати декілька різних продуктів.
         </p>
       </div>
-      
-      {/* Форма додавання/редагування продукту */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
@@ -91,7 +65,6 @@ const ProductInfoStep = () => {
             error={errors.name?.message}
             {...register("name")}
           />
-          
           <Input
             id="product-amount"
             label="Кількість"
@@ -102,7 +75,6 @@ const ProductInfoStep = () => {
             {...register("amount")}
           />
         </div>
-        
         <div className="flex justify-end gap-2">
           {editingProductId && (
             <Button type="button" variant="outline" size="sm" onClick={cancelEditing}>
@@ -125,8 +97,6 @@ const ProductInfoStep = () => {
           </Button>
         </div>
       </form>
-      
-      {/* Список доданих продуктів */}
       {products.length > 0 ? (
         <div className="space-y-4">
           <h4 className="text-sm font-medium">Додані продукти ({products.length})</h4>
@@ -136,7 +106,7 @@ const ProductInfoStep = () => {
                 key={product.id}
                 className={cn(
                   "flex items-center justify-between p-3",
-                  editingProductId === product.id && "bg-muted/50",
+                  editingProductId === product.id && "bg-muted/50"
                 )}
               >
                 <div className="flex items-center gap-2">
@@ -152,8 +122,7 @@ const ProductInfoStep = () => {
                     onClick={() => startEditing(product)}
                     disabled={editingProductId !== null}
                   >
-                    <Edit2 className="h-4 w-4" />
-                    <span className="sr-only">Редагувати</span>
+                    <Edit2 className="h-4 w-4" /><span className="sr-only">Редагувати</span>
                   </Button>
                   <Button
                     variant="ghost"
@@ -161,8 +130,7 @@ const ProductInfoStep = () => {
                     onClick={() => removeProduct(product.id)}
                     disabled={editingProductId !== null}
                   >
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                    <span className="sr-only">Видалити</span>
+                    <Trash2 className="h-4 w-4 text-destructive" /><span className="sr-only">Видалити</span>
                   </Button>
                 </div>
               </div>

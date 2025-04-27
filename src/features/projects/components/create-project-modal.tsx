@@ -3,17 +3,16 @@
 import { useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { ProjectStepper } from "./stepper/project-stepper"
-import { useCreateProject } from "../hooks/use-create-project"
+import { CreateProjectProvider, useCreateProjectContext } from "@/context/create-project-context"
 
 interface CreateProjectModalProps {
   isOpen: boolean
   onClose: () => void
 }
 
-export function CreateProjectModal({ isOpen, onClose }: CreateProjectModalProps) {
-  const { resetForm } = useCreateProject()
+function InnerCreateProjectModal({ isOpen, onClose }: CreateProjectModalProps) {
+  const { resetForm } = useCreateProjectContext()
   
-  // Очищаємо форму при закритті модального вікна
   useEffect(() => {
     if (!isOpen) {
       resetForm()
@@ -29,5 +28,13 @@ export function CreateProjectModal({ isOpen, onClose }: CreateProjectModalProps)
         <ProjectStepper onClose={onClose} />
       </DialogContent>
     </Dialog>
+  )
+}
+
+export function CreateProjectModal(props: CreateProjectModalProps) {
+  return (
+    <CreateProjectProvider>
+      <InnerCreateProjectModal {...props} />
+    </CreateProjectProvider>
   )
 }

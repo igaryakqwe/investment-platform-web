@@ -1,12 +1,11 @@
 "use client"
 
-import { useCreateProject } from "../../../hooks/use-create-project"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { useEffect } from "react"
+import { useCreateProjectContext } from "@/context/create-project-context"
 
 const projectInfoSchema = z.object({
   name: z.string().min(3, "Назва проєкту має містити щонайменше 3 символи"),
@@ -16,60 +15,46 @@ const projectInfoSchema = z.object({
 
 export type ProjectInfoValues = z.infer<typeof projectInfoSchema>
 
-const ProjectInfoStep = () => {
-  const { projectInfo, updateProjectInfo } = useCreateProject()
+export const ProjectInfoStep = () => {
+  const { projectInfo, updateProjectInfo } = useCreateProjectContext()
   
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<ProjectInfoValues>({
+  const { register, formState: { errors } } = useForm<ProjectInfoValues>({
     resolver: zodResolver(projectInfoSchema),
-    defaultValues: projectInfo ?? {
-      name: "",
-      description: "",
-      address: "",
-    },
+    defaultValues: projectInfo,
   })
   
-  // Оновлюємо стан форми при зміні полів
-  const formValues = watch()
-  
-  useEffect(() => {
-    updateProjectInfo(formValues)
-  }, [formValues, updateProjectInfo])
-  
-  // Функція-заглушка для onSubmit, оскільки відправка відбувається в іншому компоненті
-  const onSubmit = (data: ProjectInfoValues) => {
-    console.log(data)
-  }
-  
   return (
-    <form className="space-y-6 p-1" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-6 p-1">
       <Input
         id="name"
         label="Назва проєкту"
         placeholder="Введіть назву проєкту"
         error={errors.name?.message}
-        {...register("name")}
+        {...register("name", {
+          onChange: (e) =>
+            updateProjectInfo({ ...projectInfo, name: e.target.value }),
+        })}
       />
-      
       <Textarea
         id="description"
         label="Опис проєкту"
-        placeholder="Детальний опис проєкту, його цілі та очікувані результати"
+        placeholder="Детальний опис проєкту…"
         className="min-h-[120px]"
         error={errors.description?.message}
-        {...register("description")}
+        {...register("description", {
+          onChange: (e) =>
+            updateProjectInfo({ ...projectInfo, description: e.target.value }),
+        })}
       />
-      
       <Input
         id="address"
         label="Адреса проєкту"
         placeholder="Область, місто, вулиця"
         error={errors.address?.message}
-        {...register("address")}
+        {...register("address", {
+          onChange: (e) =>
+            updateProjectInfo({ ...projectInfo, address: e.target.value }),
+        })}
       />
     </form>
   )

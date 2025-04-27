@@ -1,84 +1,58 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
-import { useCreateProject } from "../../../hooks/use-create-project"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-// import { uploadImage } from "@/lib/upload-image"
-import { ImagePlus, Loader2, Star, X } from "lucide-react"
 import Image from "next/image"
-import { uploadImage } from "@/api/projects/projects.api";
-import { toast } from "sonner";
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { ImagePlus, Loader2, Star, X } from "lucide-react"
+import { toast } from "sonner"
+import { useCreateProjectContext } from "@/context/create-project-context"
+import { uploadImage } from "@/api/projects/projects.api"
 
 const ProjectImagesStep = () => {
-  const { projectImages, updateProjectImages } = useCreateProject()
+  const { projectImages, updateProjectImages } = useCreateProjectContext()
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
-    if (!files || files.length === 0) return
-    
+    if (!files?.length) return
     setIsUploading(true)
     setUploadProgress(0)
-    
     try {
       const formData = new FormData()
-      for (const file of files) {
-        formData.append("files", file)
-      }
-      
+      Array.from(files).forEach((f) => formData.append("files", f))
       const interval = setInterval(() => {
-        setUploadProgress((prev) => {
-          const newProgress = prev + Math.random() * 5
-          return newProgress > 95 ? 95 : newProgress
-        })
+        setUploadProgress((p) => Math.min(p + Math.random() * 5, 95))
       }, 200)
-      
-      const imageUrls = await uploadImage(formData)
-      
+      const urls = await uploadImage(formData)
       clearInterval(interval)
       setUploadProgress(100)
-      
-      const formattedImages = imageUrls.map(url => {
-        return {
-          link: url,
-          isMain: false
-        }
-      })
-      
-      const uploadedImages = [...projectImages, ...formattedImages]
-      updateProjectImages(uploadedImages)
-      
-      setTimeout(() => {
-        setUploadProgress(0)
-      }, 500)
-    } catch (error) {
-      console.error("Error uploading images:", error)
-      toast("Не вдалося завантажити зображення. Спробуйте ще раз.")
+      updateProjectImages([
+        ...projectImages,
+        ...urls.map((link) => ({ link, isMain: false })),
+      ])
+      setTimeout(() => setUploadProgress(0), 500)
+    } catch {
+      toast.error("Не вдалося завантажити зображення.")
     } finally {
       setIsUploading(false)
     }
   }
   
-  const removeImage = (index: number) => {
-    const updatedImages = [...projectImages]
-    updatedImages.splice(index, 1)
-    updateProjectImages(updatedImages)
+  const removeImage = (i: number) => {
+    const copy = [...projectImages]
+    copy.splice(i, 1)
+    updateProjectImages(copy)
   }
   
-  const setMainImage = (index: number) => {
-    if (index === 0) return
-    
-    const updatedImages = [...projectImages]
-    const mainImage = updatedImages.splice(index, 1)[0]
-    
-    if (mainImage) {
-      updatedImages.unshift(mainImage)
-      updateProjectImages(updatedImages)
+  const setMain = (i: number) => {
+    if (i === 0) return
+    const copy = [...projectImages]
+    const [main] = copy.splice(i, 1)
+    if (main) {
+      copy.unshift(main)
+      updateProjectImages(copy)
     }
   }
   
@@ -87,7 +61,7 @@ const ProjectImagesStep = () => {
       <div className="space-y-2">
         <Label htmlFor="images">Фотографії проєкту</Label>
         <div className="border-2 border-dashed rounded-lg p-6 text-center">
-          <Input
+          <input
             id="images"
             type="file"
             accept="image/*"
@@ -112,26 +86,23 @@ const ProjectImagesStep = () => {
               <div
                 className="h-full bg-primary rounded-full transition-all"
                 style={{ width: `${uploadProgress}%` }}
-              ></div>
+              />
             </div>
           </div>
         )}
       </div>
-      
       {projectImages.length > 0 && (
         <div className="space-y-4">
           <div className="text-sm font-medium">
             Завантажені зображення ({projectImages.length})
-            {projectImages.length > 0 && (
-              <span className="text-muted-foreground ml-2 text-xs">Перше зображення буде головним</span>
-            )}
+            <span className="text-muted-foreground ml-2 text-xs">Перше зображення буде головним</span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {projectImages.map((image, index) => (
               <div key={index} className="relative group">
                 <div className="aspect-[4/3] rounded-md overflow-hidden border">
                   <Image
-                    src={image.link ?? "/placeholder.svg"}
+                    src={image.link}
                     alt={`Project image ${index + 1}`}
                     width={300}
                     height={225}
@@ -144,7 +115,7 @@ const ProjectImagesStep = () => {
                       variant="secondary"
                       size="icon"
                       className="h-7 w-7 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={() => setMainImage(index)}
+                      onClick={() => setMain(index)}
                       title="Зробити головним"
                     >
                       <Star className="h-4 w-4" />

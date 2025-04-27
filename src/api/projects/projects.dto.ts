@@ -2,7 +2,8 @@ export interface CreateProjectDto {
   name: string
   description: string
   address: string
-  images: {
+  userId: string
+  photos: {
     link: string,
     isMain: boolean
   }[]

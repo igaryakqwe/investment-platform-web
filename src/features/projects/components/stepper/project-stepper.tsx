@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import ProjectInfoStep from "./steps/project-info-step"
 import ProjectImagesStep from "./steps/project-images-step"
 import ProductInfoStep from "./steps/product-info-step"
-import { useCreateProject } from "../../hooks/use-create-project"
+import { useCreateProjectContext } from "@/context/create-project-context"
 import { Loader2 } from "lucide-react"
 import { Stepper } from "@/components/ui/stepper"
 
@@ -15,7 +15,7 @@ interface ProjectStepperProps {
 
 export function ProjectStepper({ onClose }: ProjectStepperProps) {
   const [currentStep, setCurrentStep] = useState(0)
-  const { isSubmitting, submitForm } = useCreateProject()
+  const { isSubmitting, submitForm } = useCreateProjectContext()
   
   const steps = [
     { id: "info", label: "Інформація про проєкт", component: <ProjectInfoStep /> },
@@ -23,30 +23,25 @@ export function ProjectStepper({ onClose }: ProjectStepperProps) {
     { id: "product", label: "Інформація про продукт", component: <ProductInfoStep /> },
   ]
   
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1)
+      setCurrentStep((s) => s + 1)
     } else {
-      submitForm().then(() => {
-        onClose()
-      })
+      const ok = await submitForm()
+      if (ok) onClose()
     }
   }
   
   const handleBack = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1)
+      setCurrentStep((s) => s - 1)
     }
   }
   
   return (
     <div className="space-y-6 pb-2">
       <Stepper steps={steps} activeStep={currentStep} className="px-2 py-4" />
-      
-      {/* Step content */}
       <div className="min-h-[300px] py-4">{steps[currentStep]?.component}</div>
-      
-      {/* Navigation buttons */}
       <div className="flex justify-between pt-4 border-t">
         <Button variant="outline" onClick={currentStep === 0 ? onClose : handleBack} disabled={isSubmitting}>
           {currentStep === 0 ? "Скасувати" : "Назад"}
@@ -59,3 +54,4 @@ export function ProjectStepper({ onClose }: ProjectStepperProps) {
     </div>
   )
 }
+

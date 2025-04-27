@@ -2,17 +2,34 @@ import { API_URL } from "@/lib/constants";
 import type { ErrorResponse } from "@/types/api";
 import type { Project } from "@/types/project";
 import type { CreateProjectDto } from "@/api/projects/projects.dto";
+import { generateAuthHeaders } from "@/utils/auth.utils";
 
 export const createProject = async (data: CreateProjectDto) => {
   try {
+    console.log({
+      ...data,
+      ...{
+        estimatedCost: 0,
+        currencyType: "UAH",
+        projectType: "INVESTMENT",
+      },
+    });
     const response = await fetch(
-      `${API_URL}/projects`,
+      `${API_URL}/project`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...generateAuthHeaders(),
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          ...{
+            estimatedCost: 0,
+            currencyType: "UAH",
+            projectType: "INVESTMENT",
+          },
+        }),
       },
     );
     
@@ -34,7 +51,7 @@ export const uploadImage = async (data: FormData) => {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          ...generateAuthHeaders(),
         },
         body: data,
       },
