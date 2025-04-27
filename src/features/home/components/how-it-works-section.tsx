@@ -74,7 +74,7 @@ export function HowItWorksSection() {
                       <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full">
                         {step.icon}
                       </div>
-                      <div className="bg-primary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-full font-bold">
+                      <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-full font-bold text-white">
                         {index + 1}
                       </div>
                     </div>
