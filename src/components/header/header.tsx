@@ -83,7 +83,7 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex">
+            <div onClick={toggleMenu} className="hidden md:flex">
               <UserProfile />
             </div>
 
@@ -111,7 +111,9 @@ const Header = () => {
           className="bg-background/95 border-border/40 fixed inset-x-0 top-16 z-30 border-b px-2 py-4 backdrop-blur-lg md:hidden"
         >
           <nav className="container flex flex-col gap-4">
-            <UserProfile />
+            <div onClick={toggleMenu}>
+              <UserProfile />
+            </div>
             {navItems.map((item) =>
               isHomePage ? (
                 <button
