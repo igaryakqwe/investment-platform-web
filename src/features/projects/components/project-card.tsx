@@ -25,12 +25,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   const mainPhoto =
     project.photos.find((p) => p.isMain)?.link ?? project.photos[0]?.link;
-  const totalInvested =
-    project.products?.reduce((sum, investment) => sum + investment.amount, 0) ||
-    0;
-  const progress = project.products.reduce((sum, investment) => {
-    return sum + (investment.amount || 0);
+  const totalNeeded = project.products.reduce(
+    (sum, product) => sum + product.amount,
+    0,
+  );
+  const totalRaised = project.products.reduce((sum, product) => {
+    const productInvestments =
+      product.investments?.reduce((invSum, inv) => invSum + inv.amount, 0) ?? 0;
+    return sum + productInvestments;
   }, 0);
+  const progress = totalNeeded > 0 ? (totalRaised / totalNeeded) * 100 : 0;
 
   const investorCount = project.products?.length ?? 0;
   const createdDate = new Date(project.createdAt);

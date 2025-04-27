@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "../logo";
+import { ROUTES } from "@/constants/navigation";
 
 const Footer = () => {
   return (
@@ -8,33 +9,21 @@ const Footer = () => {
         <Logo />
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Link
-            href="#"
+            href={ROUTES.HOME}
             className="text-md text-muted-foreground hover:text-foreground"
           >
-            About Us
+            Home
           </Link>
           <Link
-            href="#"
+            href={ROUTES.PROJECTS}
             className="text-md text-muted-foreground hover:text-foreground"
           >
-            Terms of Use
-          </Link>
-          <Link
-            href="#"
-            className="text-md text-muted-foreground hover:text-foreground"
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            href="#"
-            className="text-md text-muted-foreground hover:text-foreground"
-          >
-            Contact
+            Projects
           </Link>
         </div>
         <div className="flex gap-4">
           <Link
-            href="#"
+            href={ROUTES.HOME}
             className="text-muted-foreground hover:text-foreground"
           >
             <svg
@@ -54,7 +43,7 @@ const Footer = () => {
             <span className="sr-only">Facebook</span>
           </Link>
           <Link
-            href="#"
+            href={ROUTES.HOME}
             className="text-muted-foreground hover:text-foreground"
           >
             <svg
@@ -76,7 +65,7 @@ const Footer = () => {
             <span className="sr-only">Instagram</span>
           </Link>
           <Link
-            href="#"
+            href={ROUTES.HOME}
             className="text-muted-foreground hover:text-foreground"
           >
             <svg
