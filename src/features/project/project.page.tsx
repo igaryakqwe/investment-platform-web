@@ -22,6 +22,7 @@ import { Avatar } from "@/components/ui/avatar";
 import useProjectQuery from "@/hooks/use-project-query";
 import type { Products } from "@/types/project";
 import CreateInvestmentModal from "@/features/project/components/create-investment-modal";
+import useAuthStore from "@/store/use-auth-store";
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -137,6 +138,7 @@ interface ProjectPageProps {
 
 const ProjectPage = ({ id }: ProjectPageProps) => {
   const { project, isLoading } = useProjectQuery(id);
+  const { user } = useAuthStore();
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [investAmount, setInvestAmount] = useState("");
@@ -147,14 +149,6 @@ const ProjectPage = ({ id }: ProjectPageProps) => {
   const { percent, raised, remaining } = calculateProgress(project.products);
 
   if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Error loading project</div>;
-  // if (!project) return <div>Project not found</div>;
-
-  const handleInvest = () => {
-    console.log(`Investing ${investAmount} in product ${selectedProduct}`);
-    setInvestAmount("");
-    setSelectedProduct("");
-  };
 
   return (
     <div className="w-full pb-12">
@@ -373,7 +367,9 @@ const ProjectPage = ({ id }: ProjectPageProps) => {
                   </div>
                 </div>
               </div>
-              <CreateInvestmentModal products={project.products ?? []} />
+              {user?.id === project.userId && (
+                <CreateInvestmentModal products={project.products ?? []} />
+              )}
             </div>
           </div>
         </div>

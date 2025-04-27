@@ -60,7 +60,7 @@ export function HeroSection() {
         <div className="bg-secondary/10 absolute bottom-1/3 left-1/3 h-96 w-96 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 px-4 py-12 md:px-6 md:py-24">
+      <div className="relative z-10 px-4 py-12 md:px-6 md:py-12">
         <motion.div
           variants={containerVariants}
           initial="hidden"

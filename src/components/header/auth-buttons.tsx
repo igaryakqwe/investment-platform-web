@@ -6,11 +6,14 @@ import { cn } from "@/utils/styles.utils";
 
 const AuthButtons = () => {
   return (
-    <div className="flex gap-2 mt-2 px-2">
-      <Link href={ROUTES.SIGN_IN} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "flex-1 rounded-full")}>
+    <div className="flex gap-2 px-2">
+      <Link
+        href={ROUTES.SIGN_IN}
+        className={cn(buttonVariants({ variant: "outline" }))}
+      >
         Sign in
       </Link>
-      <Link href={ROUTES.SIGN_UP} className={cn(buttonVariants({ size: "sm" }), "flex-1 rounded-full")}>
+      <Link href={ROUTES.SIGN_UP} className={cn(buttonVariants())}>
         Sign up
       </Link>
     </div>
