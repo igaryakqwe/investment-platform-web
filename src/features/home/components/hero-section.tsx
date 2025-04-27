@@ -106,19 +106,9 @@ export function HeroSection() {
             </motion.div>
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap gap-4 pt-4"
+              className="flex flex-wrap gap-4 pt-2"
             >
-              <div className="flex items-center gap-2">
-                <div className="flex -space-x-2">
-                  {[1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="bg-muted border-background flex h-8 w-8 items-center justify-center rounded-full border-2"
-                    >
-                      <span className="text-xs font-medium">{i}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="flex items-center gap-2 pl-2">
                 <span className="text-muted-foreground text-sm">
                   +500 projects already on the platform
                 </span>
