@@ -8,13 +8,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowUpRight, MapPin, Users, Calendar } from "lucide-react";
+import {
+  ArrowUpRight,
+  MapPin,
+  Users,
+  Calendar,
+  MessageCircleIcon,
+} from "lucide-react";
 import type { Project } from "@/types/project";
 import { formatDistanceToNow } from "date-fns";
 import useChatStore from "@/store/use-chat-store";
 import { getUserById } from "@/api/users/users.api";
 import Link from "next/link";
 import { cn } from "@/utils/styles.utils";
+import useAuthStore from "@/store/use-auth-store";
 
 interface ProjectCardProps {
   project: Project;
@@ -22,6 +29,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const { addChat, setIsChatOpen, setReceiverId } = useChatStore();
+  const { user } = useAuthStore();
 
   const mainPhoto =
     project.photos.find((p) => p.isMain)?.link ?? project.photos[0]?.link;
@@ -96,17 +104,23 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="gap-2">
-        <Button onClick={handleOpenChat}>Chat</Button>
+      <CardFooter className="space-x-2">
+        {project.userId !== user?.id && (
+          <Button
+            icon={<MessageCircleIcon />}
+            className="w-full"
+            onClick={handleOpenChat}
+          >
+            Chat
+          </Button>
+        )}
+
         <Link
           href={`/projects/${project.id}`}
-          className={cn(
-            buttonVariants({ variant: "outline" }),
-            "w-full",
-          )}
+          className={cn(buttonVariants(), "w-full")}
         >
           View Details
-          <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <ArrowUpRight className="h-4 w-4" />
         </Link>
       </CardFooter>
     </Card>
