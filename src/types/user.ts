@@ -13,3 +13,12 @@ export interface User {
   isLegal: boolean;
   avatarLink: string | null;
 }
+
+export interface ChatUser {
+  name: string;
+  firstName: string | null;
+  lastName: string | null;
+  middleName: string | null;
+  avatarLink: string | null;
+  userId: string;
+}

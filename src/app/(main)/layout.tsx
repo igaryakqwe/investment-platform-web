@@ -1,6 +1,7 @@
 import { type PropsWithChildren } from "react";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
+import ChatPopover from "@/components/chat/chat-popover";
 
 const MainLayout = ({ children }: PropsWithChildren) => {
   return (
@@ -8,6 +9,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
       <Header />
       <main className="h-full w-full max-w-7xl flex-1">{children}</main>
       <Footer />
+      <ChatPopover />
     </div>
   );
 };

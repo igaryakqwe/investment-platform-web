@@ -9,13 +9,24 @@ import useProjectsQuery from "@/hooks/use-projects-query";
 import { parseAsString, useQueryState } from "nuqs";
 import SearchField from "@/features/projects/components/search-field";
 import useDebounce from "@/hooks/use-debounce";
+import { usePagination } from "@/hooks/use-pagination";
+import PaginationControls from "@/components/pagination-controls";
+import { ProjectCardSkeleton } from "@/features/projects/components/project-card-skeleton";
 
 const ProjectsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search] = useQueryState("search", parseAsString.withDefault(""));
   const debouncedSearch = useDebounce(search, 300);
 
-  const { projects } = useProjectsQuery({ search: debouncedSearch });
+  const { projects, isLoading } = useProjectsQuery({ search: debouncedSearch });
+
+  const { currentPage, totalPages, currentItems, handlePageChange } =
+    usePagination({
+      itemsPerPage: 6,
+      totalItems: projects?.length ?? 0,
+    });
+
+  const paginatedProjects = currentItems(projects);
 
   return (
     <div className="w-full max-w-7xl px-4 py-8 md:px-6 md:py-8">
@@ -47,11 +58,28 @@ const ProjectsPage = () => {
         <SearchField />
       </div>
 
-      <div className="grid w-full gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-        {projects?.map((project) => (
+      <div className="mb-6 grid w-full gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+        {isLoading &&
+          Array.from({ length: 6 }).map((_, i) => (
+            <ProjectCardSkeleton key={i} />
+          ))}
+
+        {!isLoading && projects.length === 0 && (
+          <div className="col-span-2 text-center">
+            <p className="text-muted-foreground">No projects found.</p>
+          </div>
+        )}
+
+        {paginatedProjects?.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
+
+      <PaginationControls
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
       
       <CreateProjectModal
         isOpen={isModalOpen}
