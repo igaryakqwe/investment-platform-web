@@ -142,8 +142,7 @@ export function HeroSection({ projects }: HeroSectionProps) {
               <div className="relative aspect-[4/3]">
                 <Image
                   src={imageUrl ?? ""}
-                  width={800}
-                  height={600}
+                  fill
                   alt="Rebuilding Ukraine"
                   className="h-auto w-full object-cover"
                 />

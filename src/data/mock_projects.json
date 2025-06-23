@@ -1,0 +1,523 @@
+[
+  {
+    "name": "Gamma Steelworks",
+    "id": "proj-003",
+    "estimatedCost": 3456414,
+    "currencyType": "GBP",
+    "projectType": "Expansion",
+    "description": "Project 3 description for Gamma Steelworks.",
+    "address": "34 Duisburg, Germany",
+    "userId": "user-03",
+    "photos": [
+      {
+        "id": "cfc909a9-5342-41f5-a842-9e223a86f028",
+        "projectId": "proj-003",
+        "link": "https://images.pexels.com/photos/257700/pexels-photo-257700.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "e5fed8ea-7606-418e-abc7-652e97427cc5",
+        "projectId": "proj-003",
+        "link": "https://images.pexels.com/photos/236698/pexels-photo-236698.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-01-25T00:00:00Z"
+  },
+  {
+    "name": "Alpha Manufacturing",
+    "id": "proj-001",
+    "estimatedCost": 3924875,
+    "currencyType": "GBP",
+    "projectType": "Upgrade",
+    "description": "Project 1 description for Alpha Manufacturing.",
+    "address": "19 Detroit, MI, USA",
+    "userId": "user-01",
+    "photos": [
+      {
+        "id": "f8749239-a838-49b4-8a92-4d173813b474",
+        "projectId": "proj-001",
+        "link": "https://images.pexels.com/photos/236698/pexels-photo-236698.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "c6b75047-ac0a-4922-ae1c-4c23a716302f",
+        "projectId": "proj-001",
+        "link": "https://images.pexels.com/photos/247763/pexels-photo-247763.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-01-15T00:00:00Z"
+  },
+  {
+    "name": "Beta Refinery",
+    "id": "proj-002",
+    "estimatedCost": 3256314,
+    "currencyType": "EUR",
+    "projectType": "Maintenance",
+    "description": "Project 2 description for Beta Refinery.",
+    "address": "99 Houston, TX, USA",
+    "userId": "user-02",
+    "photos": [
+      {
+        "id": "22b59055-628e-4f33-83c5-74d5e15eade7",
+        "projectId": "proj-002",
+        "link": "https://images.pexels.com/photos/3846206/pexels-photo-3846206.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "318f81c5-ebaf-4572-9dc4-93b904b95de7",
+        "projectId": "proj-002",
+        "link": "https://images.pexels.com/photos/162568/oil-rig-sea-sunset-sunrise-162568.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-01-20T00:00:00Z"
+  },
+
+  {
+    "name": "Delta Textiles",
+    "id": "proj-004",
+    "estimatedCost": 3478214,
+    "currencyType": "GBP",
+    "projectType": "New Build",
+    "description": "Project 4 description for Delta Textiles.",
+    "address": "40 Manchester, UK",
+    "userId": "user-04",
+    "photos": [
+      {
+        "id": "91af0ace-3aa9-4a83-94d1-f458c9c9b0ed",
+        "projectId": "proj-004",
+        "link": "https://images.pexels.com/photos/1145434/pexels-photo-1145434.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "3099ba0f-4c55-4496-a4b8-be8249196062",
+        "projectId": "proj-004",
+        "link": "https://images.pexels.com/photos/236698/pexels-photo-236698.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-01-30T00:00:00Z"
+  },
+  {
+    "name": "Epsilon Chemicals",
+    "id": "proj-005",
+    "estimatedCost": 711972,
+    "currencyType": "GBP",
+    "projectType": "New Build",
+    "description": "Project 5 description for Epsilon Chemicals.",
+    "address": "64 Baytown, TX, USA",
+    "userId": "user-05",
+    "photos": [
+      {
+        "id": "bfc027aa-15a0-4e04-afba-04f60449097e",
+        "projectId": "proj-005",
+        "link": "https://images.pexels.com/photos/3846206/pexels-photo-3846206.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "fb2fd002-f20d-4337-9af1-311d3d09be91",
+        "projectId": "proj-005",
+        "link": "https://images.pexels.com/photos/257700/pexels-photo-257700.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-02-04T00:00:00Z"
+  },
+  {
+    "name": "Zeta Foundry",
+    "id": "proj-006",
+    "estimatedCost": 3524335,
+    "currencyType": "USD",
+    "projectType": "Expansion",
+    "description": "Project 6 description for Zeta Foundry.",
+    "address": "11 Cleveland, OH, USA",
+    "userId": "user-06",
+    "photos": [
+      {
+        "id": "b25316e5-786f-49cf-b11c-7e8570f4b7d1",
+        "projectId": "proj-006",
+        "link": "https://images.pexels.com/photos/236698/pexels-photo-236698.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "0141fe46-13e1-4c61-a79e-c98c963f34d7",
+        "projectId": "proj-006",
+        "link": "https://images.pexels.com/photos/1145434/pexels-photo-1145434.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-02-09T00:00:00Z"
+  },
+  {
+    "name": "Eta Brewery",
+    "id": "proj-007",
+    "estimatedCost": 2920620,
+    "currencyType": "EUR",
+    "projectType": "New Build",
+    "description": "Project 7 description for Eta Brewery.",
+    "address": "29 Munich, Germany",
+    "userId": "user-07",
+    "photos": [
+      {
+        "id": "29bd4f63-0df5-4699-bc8f-4fb830373846",
+        "projectId": "proj-007",
+        "link": "https://images.pexels.com/photos/3846206/pexels-photo-3846206.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "621be035-86c5-45ff-b43a-b27ee1e6da5c",
+        "projectId": "proj-007",
+        "link": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-02-14T00:00:00Z"
+  },
+  {
+    "name": "Theta Paper Mill",
+    "id": "proj-008",
+    "estimatedCost": 1463692,
+    "currencyType": "USD",
+    "projectType": "New Build",
+    "description": "Project 8 description for Theta Paper Mill.",
+    "address": "98 Cardiff, UK",
+    "userId": "user-08",
+    "photos": [
+      {
+        "id": "d2a54412-7d7d-455b-97e0-8cb551d0fd00",
+        "projectId": "proj-008",
+        "link": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64",
+        "isMain": true
+      },
+      {
+        "id": "8572e44d-cc7a-4a7d-a2cf-3c17ad5e343d",
+        "projectId": "proj-008",
+        "link": "https://images.pexels.com/photos/236698/pexels-photo-236698.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-02-19T00:00:00Z"
+  },
+  {
+    "name": "Iota Automotive",
+    "id": "proj-009",
+    "estimatedCost": 2499946,
+    "currencyType": "GBP",
+    "projectType": "Expansion",
+    "description": "Project 9 description for Iota Automotive.",
+    "address": "41 Fremont, CA, USA",
+    "userId": "user-09",
+    "photos": [
+      {
+        "id": "10ad43a9-b372-4dff-817f-3d4cc1ced2c8",
+        "projectId": "proj-009",
+        "link": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+        "isMain": true
+      },
+      {
+        "id": "ce076701-a214-4bdc-a413-c5d02158c563",
+        "projectId": "proj-009",
+        "link": "https://images.pexels.com/photos/247763/pexels-photo-247763.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-02-24T00:00:00Z"
+  },
+  {
+    "name": "Kappa Plastics",
+    "id": "proj-010",
+    "estimatedCost": 781333,
+    "currencyType": "USD",
+    "projectType": "New Build",
+    "description": "Project 10 description for Kappa Plastics.",
+    "address": "26 Akron, OH, USA",
+    "userId": "user-10",
+    "photos": [
+      {
+        "id": "6144dc1d-16af-46db-a04e-937149e0ad55",
+        "projectId": "proj-010",
+        "link": "https://images.pexels.com/photos/257700/pexels-photo-257700.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "19e05373-1159-4c86-9bf2-f440874f0069",
+        "projectId": "proj-010",
+        "link": "https://images.pexels.com/photos/3846206/pexels-photo-3846206.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-03-01T00:00:00Z"
+  },
+  {
+    "name": "Lambda Glassworks",
+    "id": "proj-011",
+    "estimatedCost": 3435227,
+    "currencyType": "EUR",
+    "projectType": "Expansion",
+    "description": "Project 11 description for Lambda Glassworks.",
+    "address": "58 Venice, Italy",
+    "userId": "user-11",
+    "photos": [
+      {
+        "id": "71df73b1-3cd1-4628-ba0b-c94d858692fe",
+        "projectId": "proj-011",
+        "link": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492",
+        "isMain": true
+      },
+      {
+        "id": "a5be8b17-c0eb-4e90-b0f1-6452fab87d66",
+        "projectId": "proj-011",
+        "link": "https://images.pexels.com/photos/1145434/pexels-photo-1145434.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-03-06T00:00:00Z"
+  },
+  {
+    "name": "Mu Cement Co",
+    "id": "proj-012",
+    "estimatedCost": 1620897,
+    "currencyType": "USD",
+    "projectType": "Upgrade",
+    "description": "Project 12 description for Mu Cement Co.",
+    "address": "38 Wichita, KS, USA",
+    "userId": "user-12",
+    "photos": [
+      {
+        "id": "7d590ae5-be9f-40c1-83a0-67c6775de28a",
+        "projectId": "proj-012",
+        "link": "https://images.pexels.com/photos/236698/pexels-photo-236698.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "086123d6-5cd4-4547-a274-3ef2048654dc",
+        "projectId": "proj-012",
+        "link": "https://images.pexels.com/photos/257700/pexels-photo-257700.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-03-11T00:00:00Z"
+  },
+  {
+    "name": "Nu Semiconductor",
+    "id": "proj-013",
+    "estimatedCost": 1712182,
+    "currencyType": "EUR",
+    "projectType": "New Build",
+    "description": "Project 13 description for Nu Semiconductor.",
+    "address": "11 Phoenix, AZ, USA",
+    "userId": "user-13",
+    "photos": [
+      {
+        "id": "9d68c97f-8a53-487f-a30d-c0d5976b0ad4",
+        "projectId": "proj-013",
+        "link": "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23",
+        "isMain": true
+      },
+      {
+        "id": "65dc2349-d2e1-4d7d-94c6-8a3948a810f4",
+        "projectId": "proj-013",
+        "link": "https://images.pexels.com/photos/247763/pexels-photo-247763.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-03-16T00:00:00Z"
+  },
+  {
+    "name": "Xi Food Processing",
+    "id": "proj-014",
+    "estimatedCost": 562209,
+    "currencyType": "GBP",
+    "projectType": "Upgrade",
+    "description": "Project 14 description for Xi Food Processing.",
+    "address": "67 London, UK",
+    "userId": "user-14",
+    "photos": [
+      {
+        "id": "6d8aa9ba-11b0-4666-a63c-c00e47eb5962",
+        "projectId": "proj-014",
+        "link": "https://images.pexels.com/photos/247763/pexels-photo-247763.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "08ea30bc-d2cf-4c20-be62-790531480d30",
+        "projectId": "proj-014",
+        "link": "https://images.pexels.com/photos/3846206/pexels-photo-3846206.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-03-21T00:00:00Z"
+  },
+  {
+    "name": "Omicron Pharma",
+    "id": "proj-015",
+    "estimatedCost": 3120084,
+    "currencyType": "EUR",
+    "projectType": "Expansion",
+    "description": "Project 15 description for Omicron Pharma.",
+    "address": "88 Basel, Switzerland",
+    "userId": "user-15",
+    "photos": [
+      {
+        "id": "c64bc2bc-2c3b-4564-a1a8-086f74e710e2",
+        "projectId": "proj-015",
+        "link": "https://images.unsplash.com/photo-1582719201952-b0295ad73e71",
+        "isMain": true
+      },
+      {
+        "id": "6878d2f2-fd14-419b-84af-005f4135d5a0",
+        "projectId": "proj-015",
+        "link": "https://images.pexels.com/photos/1145434/pexels-photo-1145434.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-03-26T00:00:00Z"
+  },
+  {
+    "name": "Pi Battery Factory",
+    "id": "proj-016",
+    "estimatedCost": 2326826,
+    "currencyType": "USD",
+    "projectType": "Upgrade",
+    "description": "Project 16 description for Pi Battery Factory.",
+    "address": "21 Reno, NV, USA",
+    "userId": "user-16",
+    "photos": [
+      {
+        "id": "57bc05e6-2b2d-407b-ae27-33b8c465b5a4",
+        "projectId": "proj-016",
+        "link": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492",
+        "isMain": true
+      },
+      {
+        "id": "ed70b547-1fd1-437b-bde6-00524c3fc027",
+        "projectId": "proj-016",
+        "link": "https://images.pexels.com/photos/236698/pexels-photo-236698.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-03-31T00:00:00Z"
+  },
+  {
+    "name": "Rho Brewery",
+    "id": "proj-017",
+    "estimatedCost": 937751,
+    "currencyType": "EUR",
+    "projectType": "New Build",
+    "description": "Project 17 description for Rho Brewery.",
+    "address": "33 Portland, OR, USA",
+    "userId": "user-17",
+    "photos": [
+      {
+        "id": "d7a1c23f-7b00-4ee7-aea1-736af4be2688",
+        "projectId": "proj-017",
+        "link": "https://images.pexels.com/photos/236698/pexels-photo-236698.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "ab2d34e0-d6fb-43f7-8428-4df28b8c28dd",
+        "projectId": "proj-017",
+        "link": "https://images.pexels.com/photos/247763/pexels-photo-247763.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-04-05T00:00:00Z"
+  },
+  {
+    "name": "Sigma Logistics Warehouse",
+    "id": "proj-018",
+    "estimatedCost": 3328140,
+    "currencyType": "GBP",
+    "projectType": "New Build",
+    "description": "Project 18 description for Sigma Logistics Warehouse.",
+    "address": "33 Birmingham, UK",
+    "userId": "user-18",
+    "photos": [
+      {
+        "id": "278a270f-e0f4-4318-bc67-6b6d3f445cb3",
+        "projectId": "proj-018",
+        "link": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d",
+        "isMain": true
+      },
+      {
+        "id": "331bf0f7-8a84-4e1b-a5aa-d80b1937acc7",
+        "projectId": "proj-018",
+        "link": "https://images.pexels.com/photos/3846206/pexels-photo-3846206.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-04-10T00:00:00Z"
+  },
+  {
+    "name": "Tau Textile Dyehouse",
+    "id": "proj-019",
+    "estimatedCost": 3550293,
+    "currencyType": "USD",
+    "projectType": "Upgrade",
+    "description": "Project 19 description for Tau Textile Dyehouse.",
+    "address": "49 Lyon, France",
+    "userId": "user-19",
+    "photos": [
+      {
+        "id": "c4eaebe8-83dc-493e-9740-d03d8af9553d",
+        "projectId": "proj-019",
+        "link": "https://images.pexels.com/photos/3846206/pexels-photo-3846206.jpeg",
+        "isMain": true
+      },
+      {
+        "id": "19d16bec-3bbe-4fa0-bde0-16e66cae7e57",
+        "projectId": "proj-019",
+        "link": "https://images.pexels.com/photos/1145434/pexels-photo-1145434.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-04-15T00:00:00Z"
+  },
+  {
+    "name": "Upsilon Solar Fab",
+    "id": "proj-020",
+    "estimatedCost": 587760,
+    "currencyType": "USD",
+    "projectType": "Expansion",
+    "description": "Project 20 description for Upsilon Solar Fab.",
+    "address": "67 Tucson, AZ, USA",
+    "userId": "user-20",
+    "photos": [
+      {
+        "id": "602bed58-7d6a-4841-ac69-0c2ef07989be",
+        "projectId": "proj-020",
+        "link": "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23",
+        "isMain": true
+      },
+      {
+        "id": "90da424a-fed6-4849-b545-667bd5a579e0",
+        "projectId": "proj-020",
+        "link": "https://images.pexels.com/photos/236698/pexels-photo-236698.jpeg",
+        "isMain": false
+      }
+    ],
+    "products": [],
+    "createdAt": "2025-04-20T00:00:00Z"
+  }
+]

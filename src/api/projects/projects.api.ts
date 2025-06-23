@@ -6,6 +6,7 @@ import type {
   CreateProjectDto,
 } from "@/api/projects/projects.dto";
 import { generateAuthHeaders } from "@/utils/auth.utils";
+import projects from "@/data/mock_projects.json";
 
 export const createProject = async (data: CreateProjectDto) => {
   try {
@@ -78,26 +79,7 @@ export const uploadImage = async (data: FormData) => {
 };
 
 export const getProjects = async (queryString?: string) => {
-  try {
-    const response = await fetch(
-      `${API_URL}/project${queryString ? `?${queryString}` : ""}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    if (!response.ok) {
-      const error: ErrorResponse = await response.json();
-      throw new Error(error.message);
-    }
-
-    return (await response.json()) as Project[];
-  } catch (e) {
-    throw e;
-  }
+  return projects;
 };
 
 export const createInvestment = async (body: CreateInvestmentDto) => {
